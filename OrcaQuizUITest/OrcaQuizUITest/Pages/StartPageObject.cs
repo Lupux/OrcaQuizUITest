@@ -16,20 +16,27 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
 
-        // Big Center Buttons
-        [FindsBy(How = How.Id, Using = "Register")]
-        public IWebElement C_RegisterBtn { get; set; }
+        // Big Screen Center Buttons
+        [FindsBy(How = How.Id, Using = "UI_test_Btn_Register_BigScreen")]
+        public IWebElement C_B_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "SignIn")]
-        public IWebElement C_SignInBtn { get; set; }
+        [FindsBy(How = How.Id, Using = "UI_test_Btn_Login_BigScreen")]
+        public IWebElement C_B_SignInBtn { get; set; }
+        
+        // Small Screen Center Buttons
+        [FindsBy(How = How.Id, Using = "UI_test_Btn_Register_SmalScreen")]
+        public IWebElement C_S_RegisterBtn { get; set; }
+
+        [FindsBy(How = How.Id, Using = "UI_test_Btn_Login_SmallScreen")]
+        public IWebElement C_S_SignInBtn { get; set; }
 
         #region Generic Signin/register buttons
         //Generic Many pages buttons
         // Top Right corner buttons/links
-        [FindsBy(How = How.Id, Using = "Register")]
+        [FindsBy(How = How.Id, Using = "UI_test_Link_Register")]
         public IWebElement TR_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "SignIn")]
+        [FindsBy(How = How.Id, Using = "UI_test_Link_Signin")]
         public IWebElement TR_SignInBtn { get; set; }
         #endregion
 
@@ -43,14 +50,14 @@ namespace OrcaQuizUITest.Pages
         // TestCases:
         public RegisterPageObject TestRegisterCenterBtn()
         {
-            C_RegisterBtn.Clicks();
+            C_B_RegisterBtn.Clicks();
 
             return new RegisterPageObject();
         }
 
-        public SignInPageObject TestSignInrCenterBtn()
+        public SignInPageObject TestSignInCenterBtn()
         {
-            C_SignInBtn.Clicks();
+            C_B_SignInBtn.Clicks();
 
             return new SignInPageObject();
         }
@@ -61,6 +68,19 @@ namespace OrcaQuizUITest.Pages
 
                 return this;
         }
+
+        public RegisterPageObject TestRegisterNavBarLink()
+        {
+            TR_RegisterBtn.Clicks();
+            return new RegisterPageObject();
+        }
+
+        public SignInPageObject TestSignInNavBarLink()
+        {
+            TR_SignInBtn.Clicks();
+            return new SignInPageObject();
+        }
+
 
 
     }

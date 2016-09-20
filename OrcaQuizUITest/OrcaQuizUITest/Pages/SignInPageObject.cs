@@ -12,25 +12,26 @@ namespace OrcaQuizUITest.Pages
         }
 
         #region Sign in form
-        [FindsBy(How = How.Id, Using = "username")]
+        [FindsBy(How = How.Id, Using = "UI_test_txt_UserName")]
         public IWebElement TxtUsername { get; set; }
 
-        [FindsBy(How = How.Id, Using = "Password")]
+        [FindsBy(How = How.Id, Using = "UI_test_txt_Password")]
         public IWebElement TxtPassword { get; set; }
 
-        [FindsBy(How = How.Id, Using = "SignInBtn")]
+        [FindsBy(How = How.Id, Using = "UI_test_Btn_SignIn")]
         public IWebElement SignInBtn { get; set; }
         #endregion
 
-        // Place for a href link to RegisterPage
+        [FindsBy(How = How.Id, Using = "UI_test_Link_Register")]
+        public IWebElement RegisterLink { get; set; }
 
         #region Generic Signin/register buttons
         //Generic Many pages buttons
         // Top Right corner buttons/links
-        [FindsBy(How = How.Id, Using = "Register")]
+        [FindsBy(How = How.Id, Using = "UI_test_Link_Register")]
         public IWebElement TR_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "SignIn")]
+        [FindsBy(How = How.Id, Using = "UI_test_Link_Signin")]
         public IWebElement TR_SignInBtn { get; set; }
         #endregion
 
@@ -59,5 +60,25 @@ namespace OrcaQuizUITest.Pages
             // Return the page object
             return new DashboardPageObject();
         }
+
+        public RegisterPageObject LinkToRegister()
+        {
+            RegisterLink.Clicks();
+
+            return new RegisterPageObject();
+        }
+
+        public RegisterPageObject TestRegisterNavBarLink()
+        {
+            TR_RegisterBtn.Clicks();
+            return new RegisterPageObject();
+        }
+
+        public SignInPageObject TestSignInNavBarLink()
+        {
+            TR_SignInBtn.Clicks();
+            return new SignInPageObject();
+        }
+
     }
 }

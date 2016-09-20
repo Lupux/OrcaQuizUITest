@@ -72,30 +72,41 @@ namespace OrcaQuizUITest
             Console.WriteLine("Running TestLinksForNotSignedIn Test!");
             /* Arrange */
             string url = "http://localhost:27015/";
-            string testUrl;
+            //string testUrl;
             string expectedUrl = "http://localhost:27015/Account/Login";
 
             // go to start page
             StartPageObject start = new StartPageObject();
+            expectedUrl = url;
             Assert.That(PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Start page
-            
+            Console.WriteLine(PropertiesCollection.driver.Url);
+
             /* Test Links for not signed in user*/
             // Not Yet Functional
             var register=start.TestRegisterCenterBtn();
             expectedUrl = @"Account/Register";
             Assert.That(PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Register page
+            Console.WriteLine(PropertiesCollection.driver.Url);
 
             start = register.TestHomeButton();
             expectedUrl = url;
             Assert.That(PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Start page
+            Console.WriteLine(PropertiesCollection.driver.Url);
 
-            var login = start.TestSignInrCenterBtn();
+            var login = start.TestSignInCenterBtn();
             expectedUrl = @"Account/Login";
             Assert.That(PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Sign/Log in page
+            Console.WriteLine(PropertiesCollection.driver.Url);
 
-           
+            register = login.TestRegisterNavBarLink();
+            expectedUrl = @"Account/Register";
+            Assert.That(PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Register page
+            Console.WriteLine(PropertiesCollection.driver.Url);
 
-
+            login = register.TestSignInNavBarLink();
+            expectedUrl = @"Account/Login";
+            Assert.That(PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Sign/Log in page
+            Console.WriteLine(PropertiesCollection.driver.Url);
 
             Console.WriteLine("Test Ended");
         }
