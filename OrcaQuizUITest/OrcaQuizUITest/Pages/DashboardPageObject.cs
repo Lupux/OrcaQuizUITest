@@ -11,7 +11,7 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
 
-        [FindsBy(How = How.Id, Using = "CreateTestBtn")]
+        [FindsBy(How = How.Id, Using = "UI_Test_Btn_CreateTest")]
         public IWebElement CreateTestBtn { get; set; }
 
 
@@ -29,7 +29,10 @@ namespace OrcaQuizUITest.Pages
         public IWebElement TL_HomeBtn { get; set; }
         #endregion
 
-
+        public bool FindCreateTestBtn()
+        {
+            return CreateTestBtn.Displayed;
+        }
 
     }
 }

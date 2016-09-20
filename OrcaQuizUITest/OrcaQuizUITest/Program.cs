@@ -23,7 +23,7 @@ namespace OrcaQuizUITest
 
             PropertiesCollection.driver = new ChromeDriver(@"C:\Projects\OrcaQuizUITest\OrcaQuizUITest\OrcaQuizUITest\");
 
-            // Navigate to Googlepage
+            // Navigate to startPage
             PropertiesCollection.driver.Navigate().GoToUrl(url);
             Console.WriteLine("Init test");
         }
@@ -115,10 +115,23 @@ namespace OrcaQuizUITest
         public void LoginTest()
         {
             Console.WriteLine("Running LoginTest Test!");
-            //string username = "admin@quiz.com";
-            //string password = "P@ssw0rd";
+            string username = "admin@quiz.com";
+            string password = "P@ssw0rd";
+           // string url = "http://localhost:27015/";
+            string LoginUrl = "http://localhost:27015/Account/Login";
+            PropertiesCollection.driver.Manage().Window.Maximize();
+            PropertiesCollection.driver.Navigate().GoToUrl(LoginUrl);
+            Console.WriteLine(PropertiesCollection.driver.Url);
 
-            //LogInPageObject pageLogin = new LogInPageObject();
+            SignInPageObject pageLogin = new SignInPageObject();
+
+            var dashboard =  pageLogin.Signin(username, password);
+            
+            Console.WriteLine(PropertiesCollection.driver.Url);
+            Assert.That(dashboard.FindCreateTestBtn);
+            Console.WriteLine(PropertiesCollection.driver.Url);
+
+            Console.WriteLine("Test Ended");
         }
 
 
