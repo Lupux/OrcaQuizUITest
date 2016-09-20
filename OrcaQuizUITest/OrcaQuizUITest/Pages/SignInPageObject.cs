@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OrcaQuizUITest.Tests;
 
 namespace OrcaQuizUITest.Pages
 {
@@ -36,11 +37,16 @@ namespace OrcaQuizUITest.Pages
         #region Generic all Pages Buttons
         // Generic All pages Button
         // Top Left corner Button
-        [FindsBy(How = How.Id, Using = "Home")]
+        [FindsBy(How = How.ClassName, Using = "navbar-brand")]
         public IWebElement TL_HomeBtn { get; set; }
+       
+        public StartPageObject TestHomeButton()
+        {
+            TL_HomeBtn.Clicks();
+
+            return new StartPageObject();
+        }
         #endregion
-
-
         // Test Cases
         public DashboardPageObject Signin(string username, string password)
         {
