@@ -19,7 +19,7 @@ namespace OrcaQuizUITest.Pages
         public IWebElement CreateTestBtn { get; set; }
 
 
-        public bool FindCreateTestBtn()
+        internal bool FindCreateTestBtn()
         {
             bool result;
             try
@@ -32,6 +32,19 @@ namespace OrcaQuizUITest.Pages
                 return false;
             }
             return result;
+        }
+
+        internal bool IsGroupMember(string grpName)
+        {
+            try
+            {
+                return PropertiesCollection.driver.FindElement(By.Id("UI_test_txt_groupMembership_"+grpName)).Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+
+                return false;
+            }
         }
     }
 }

@@ -118,8 +118,6 @@ namespace OrcaQuizUITest
         public void LoginTest()
         {
             Console.WriteLine("Running LoginTest Test!");
-
-            // string url = "http://localhost:27015/";
             string LoginUrl = "http://localhost:27015/Account/Login";
             PropertiesCollection.driver.Manage().Window.Maximize();
             PropertiesCollection.driver.Navigate().GoToUrl(LoginUrl);
@@ -162,11 +160,42 @@ namespace OrcaQuizUITest
             Console.WriteLine("Running GroupsTest");
             // Login and prepare for test. 
             var dashboard = LogInPreTest();
+            // Set up Valus for test
+            string grpname= "Our first test group";
+            string admin = "admin@admin.com";
+            string newUsers = username + ", "+admin;
+
 
             // Get to ManageGroups
             ManageGroupsPageObject manageGroups = (ManageGroupsPageObject)dashboard.DDLmenue(AdminChoiseType.Group);
-
             Console.WriteLine(PropertiesCollection.driver.Url);
+
+            Assert.That(manageGroups.ThereAreGroups(), Is.False);
+
+
+            var editGroup = manageGroups.EditGroup(grpname);
+            Console.WriteLine(PropertiesCollection.driver.Url);
+
+            if (editGroup.IsgroupMember(username))
+                editGroup = editGroup.RemoveUser(username);
+
+            manageGroups = editGroup.AddUsers(newUsers);
+            Console.WriteLine("Added users");
+            editGroup = manageGroups.EditGroup(grpname);
+            Console.WriteLine("Test if users present");
+            Assert.That(editGroup.IsgroupMember(username), Is.True);
+            Assert.That(editGroup.IsgroupMember(admin), Is.True);
+
+            editGroup = editGroup.RemoveUser(admin);
+            Console.WriteLine("Test That admin@admin is removed");
+            Assert.That(editGroup.IsgroupMember(admin), Is.False);
+
+            dashboard = (DashboardPageObject)editGroup.TestHomeButton();
+
+            Console.WriteLine("Verify that user is part of group on dashboard");
+            Assert.That(dashboard.IsGroupMember(grpname));
+
+
             Console.WriteLine("Groups Test Done.");
         }
 

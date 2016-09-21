@@ -34,7 +34,13 @@ namespace OrcaQuizUITest.Pages
         public IWebElement TL_HomeBtn { get; set; }
         #endregion
 
-       
+        public PageObject TestHomeButton()
+        {
+            TL_HomeBtn.Clicks();
+
+            return new PageObject();
+        }
+
 
         internal PageObject DDLmenue(AdminChoiseType choice)
         {
