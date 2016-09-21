@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OrcaQuizUITest.Tests;
+using OpenQA.Selenium.Support.UI;
 
 namespace OrcaQuizUITest.Pages
 {
@@ -38,6 +39,26 @@ namespace OrcaQuizUITest.Pages
         {
             BtnBack.Clicks();
             return new ManageUserPageObject();
+        }
+
+        internal bool CheckIsAdmin()
+        {
+            try
+            {
+                return TxtIsAdmin.Displayed;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            } 
+        }
+
+        internal void ChangeStatus()
+        {
+            BtnChangeStatus.Clicks();
+            WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(10));
+            wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("UI_test_txt_viewBag")));
         }
     }
 }

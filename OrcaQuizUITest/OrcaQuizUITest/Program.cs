@@ -178,7 +178,7 @@ namespace OrcaQuizUITest
             var dashboard = LogInPreTest();
 
             // Get to Manage Users
-            ManageUserPageObject manageUsers =(ManageUserPageObject)dashboard.DDLmenue(AdminChoiseType.Users);
+            ManageUserPageObject manageUsers = (ManageUserPageObject)dashboard.DDLmenue(AdminChoiseType.Users);
             //Console.WriteLine(PropertiesCollection.driver.Url);
             // Find Users
             manageUsers = manageUsers.TestSearch("admin");
@@ -190,6 +190,29 @@ namespace OrcaQuizUITest
             manageUsers = viewUser.GoBack();
             Console.WriteLine(PropertiesCollection.driver.Url);
 
+            viewUser = manageUsers.GetUserPage("admin@admin.com");
+            Console.WriteLine(PropertiesCollection.driver.Url);
+
+            bool IsAdmin = viewUser.CheckIsAdmin();
+
+            if (IsAdmin)
+            {
+                viewUser.ChangeStatus();
+                Assert.That(viewUser.CheckIsAdmin(), Is.False);
+                viewUser.ChangeStatus();
+                Assert.That(viewUser.CheckIsAdmin(), Is.True);
+            }
+            else
+            {
+                viewUser.ChangeStatus();
+                Assert.That(viewUser.CheckIsAdmin(), Is.True);
+                viewUser.ChangeStatus();
+                Assert.That(viewUser.CheckIsAdmin(), Is.False);
+            }
+
+
+            manageUsers = viewUser.GoBack();
+
             Console.WriteLine("User Test Done.");
 
         }
@@ -197,7 +220,7 @@ namespace OrcaQuizUITest
         private DashboardPageObject LogInPreTest()
         {
             Console.WriteLine("Running Login Sequence");
-            
+
             string LoginUrl = "http://localhost:27015/Account/Login";
             PropertiesCollection.driver.Manage().Window.Maximize();
             PropertiesCollection.driver.Navigate().GoToUrl(LoginUrl);
