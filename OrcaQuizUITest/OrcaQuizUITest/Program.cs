@@ -180,16 +180,32 @@ namespace OrcaQuizUITest
             // Get to Manage Users
             ManageUserPageObject manageUsers = (ManageUserPageObject)dashboard.DDLmenue(AdminChoiseType.Users);
             //Console.WriteLine(PropertiesCollection.driver.Url);
-            // Find Users
+            // Search admin
             manageUsers = manageUsers.TestSearch("admin");
+
+            /*Test Search function:
+             * Expected to find self and admin@admin.com
+             * Go to ViewUser page of self
+             */
 
             ViewUserPageObject viewUser = manageUsers.GetUserPage(username);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
+            /* Check if current user is same as loged in:
+             *   Expected to be true and to find text displayed that can not change status of yourself.
+             *   This is only visable if self.
+             */
             Assert.That(viewUser.CheckSelf(), Is.True);
+
+            // Go back to ManageUser page
             manageUsers = viewUser.GoBack();
             Console.WriteLine(PropertiesCollection.driver.Url);
 
+            /* Test Make and revoke admin previliges
+             *Go to admin@admin.com page and check if admin.
+             * if admin change to not admin and then change back 
+             * else change to admin then revoke
+             */
             viewUser = manageUsers.GetUserPage("admin@admin.com");
             Console.WriteLine(PropertiesCollection.driver.Url);
 
@@ -210,7 +226,7 @@ namespace OrcaQuizUITest
                 Assert.That(viewUser.CheckIsAdmin(), Is.False);
             }
 
-
+            // Return back to ManageUser Page
             manageUsers = viewUser.GoBack();
 
             Console.WriteLine("User Test Done.");
