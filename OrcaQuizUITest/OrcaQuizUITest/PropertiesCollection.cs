@@ -16,6 +16,14 @@ namespace OrcaQuizUITest
         ClassName
 
     }
+
+    enum AdminChoiseType
+    {
+        Group,
+        Users,
+        CreateTest
+    }
+
     class PropertiesCollection
     {
 

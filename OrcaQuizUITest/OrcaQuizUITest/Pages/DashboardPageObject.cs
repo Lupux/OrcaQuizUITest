@@ -1,9 +1,13 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OrcaQuizUITest.Tests;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Interactions;
 
 namespace OrcaQuizUITest.Pages
 {
-    public class DashboardPageObject
+    public class DashboardPageObject : PageObject
     {
 
         public DashboardPageObject()
@@ -15,24 +19,19 @@ namespace OrcaQuizUITest.Pages
         public IWebElement CreateTestBtn { get; set; }
 
 
-        #region Generic Admin dropdown
-
-        // Placeholder for dropdown links
-
-        #endregion
-
-
-        #region Generic all Pages Buttons
-        // Generic All pages Button
-        // Top Left corner Button
-        [FindsBy(How = How.Id, Using = "Home")]
-        public IWebElement TL_HomeBtn { get; set; }
-        #endregion
-
         public bool FindCreateTestBtn()
         {
-            return CreateTestBtn.Displayed;
-        }
+            bool result;
+            try
+            {
+                result = CreateTestBtn.Displayed;
+            }
+            catch (NoSuchElementException)
+            {
 
+                return false;
+            }
+            return result;
+        }
     }
 }

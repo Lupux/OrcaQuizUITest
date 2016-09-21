@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OrcaQuizUITest.Tests;
 
@@ -80,5 +81,10 @@ namespace OrcaQuizUITest.Pages
             return new SignInPageObject();
         }
 
+        internal void ClearTextBoxes()
+        {
+            TxtUsername.Clear();
+            TxtPassword.Clear();
+        }
     }
 }

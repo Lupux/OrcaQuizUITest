@@ -84,7 +84,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Pages\CreateTestPageObject.cs" />
     <Compile Include="Pages\DashboardPageObject.cs" />
+    <Compile Include="Pages\ManageGroupsPageObject.cs" />
+    <Compile Include="Pages\ManageUserPageObject.cs" />
+    <Compile Include="Pages\PageObject.cs" />
     <Compile Include="Pages\RegisterPageObject.cs" />
     <Compile Include="Pages\SignInPageObject.cs" />
     <Compile Include="Pages\StartPageObject.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\GetMethodes.cs" />
     <Compile Include="Tests\SetMethodes.cs" />
+    <Compile Include="Pages\ViewUserPageObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

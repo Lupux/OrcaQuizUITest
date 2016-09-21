@@ -4,7 +4,7 @@ using OrcaQuizUITest.Tests;
 
 namespace OrcaQuizUITest.Pages
 {
-    public class RegisterPageObject
+    public class RegisterPageObject 
     {
         public RegisterPageObject()
         {

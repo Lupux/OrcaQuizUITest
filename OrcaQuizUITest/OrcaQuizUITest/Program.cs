@@ -11,6 +11,9 @@ namespace OrcaQuizUITest
 {
     class Program
     {
+        private static string username = "admin@quiz.com";
+        private static string password = "P@ssw0rd";
+
         static void Main(string[] args)
         {
         }
@@ -32,15 +35,15 @@ namespace OrcaQuizUITest
         public void AccessTests()
         {
             Console.WriteLine("Running access test ");
-           /* Arrange */
+            /* Arrange */
             string url = "http://localhost:27015/";
             string testUrl;
             string expectedUrl = "http://localhost:27015/Account/Login";
 
-            
+
             // Dashboard, Pass
-            testUrl = url + @"Dashboard/Index"; 
-            Assert.That( AccessTest(testUrl), Does.Contain(expectedUrl)); 
+            testUrl = url + @"Dashboard/Index";
+            Assert.That(AccessTest(testUrl), Does.Contain(expectedUrl));
 
             // Manage User, Pass
             testUrl = url + @"ManageUsers/Index";
@@ -83,7 +86,7 @@ namespace OrcaQuizUITest
 
             /* Test Links for not signed in user*/
             // Not Yet Functional
-            var register=start.TestRegisterCenterBtn();
+            var register = start.TestRegisterCenterBtn();
             expectedUrl = @"Account/Register";
             Assert.That(PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Register page
             Console.WriteLine(PropertiesCollection.driver.Url);
@@ -115,9 +118,8 @@ namespace OrcaQuizUITest
         public void LoginTest()
         {
             Console.WriteLine("Running LoginTest Test!");
-            string username = "admin@quiz.com";
-            string password = "P@ssw0rd";
-           // string url = "http://localhost:27015/";
+
+            // string url = "http://localhost:27015/";
             string LoginUrl = "http://localhost:27015/Account/Login";
             PropertiesCollection.driver.Manage().Window.Maximize();
             PropertiesCollection.driver.Navigate().GoToUrl(LoginUrl);
@@ -125,15 +127,91 @@ namespace OrcaQuizUITest
 
             SignInPageObject pageLogin = new SignInPageObject();
 
-            var dashboard =  pageLogin.Signin(username, password);
-            
+            // Test With no value
+            var dashboard = pageLogin.Signin(String.Empty, String.Empty);
+            Assert.That(dashboard.FindCreateTestBtn, Does.Not.True);
+            Console.WriteLine("Sign in failed with empty, empty");
+
+            // Test with only username
+            dashboard = pageLogin.Signin(username, String.Empty);
+            Assert.That(dashboard.FindCreateTestBtn, Does.Not.True);
+            Console.WriteLine("Sign in failed with Username, empty");
+
+            // Clear textboxes
+            pageLogin.ClearTextBoxes();
+
+            // Test With inCorrect Values
+            dashboard = pageLogin.Signin("Bartolomeus@ludd.luth.se", "Bitter&Kr3nkt");
+            Assert.That(dashboard.FindCreateTestBtn, Does.Not.True);
             Console.WriteLine(PropertiesCollection.driver.Url);
+
+            // Clear textboxes
+            pageLogin.ClearTextBoxes();
+
+            // Test With Correct Values
+            dashboard = pageLogin.Signin(username, password);
             Assert.That(dashboard.FindCreateTestBtn);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             Console.WriteLine("Test Ended");
         }
 
+        [Test]
+        public void GroupsTest()
+        {
+            Console.WriteLine("Running GroupsTest");
+            // Login and prepare for test. 
+            var dashboard = LogInPreTest();
+
+            // Get to ManageGroups
+            ManageGroupsPageObject manageGroups = (ManageGroupsPageObject)dashboard.DDLmenue(AdminChoiseType.Group);
+
+            Console.WriteLine(PropertiesCollection.driver.Url);
+            Console.WriteLine("Groups Test Done.");
+        }
+
+        [Test]
+        public void UserTests()
+        {
+            Console.WriteLine("Running UserTests");
+            // Login and prepare for test. 
+            var dashboard = LogInPreTest();
+
+            // Get to Manage Users
+            ManageUserPageObject manageUsers =(ManageUserPageObject)dashboard.DDLmenue(AdminChoiseType.Users);
+            //Console.WriteLine(PropertiesCollection.driver.Url);
+            // Find Users
+            manageUsers = manageUsers.TestSearch("admin");
+
+            ViewUserPageObject viewUser = manageUsers.GetUserPage(username);
+            Console.WriteLine(PropertiesCollection.driver.Url);
+
+            Assert.That(viewUser.CheckSelf(), Is.True);
+            manageUsers = viewUser.GoBack();
+            Console.WriteLine(PropertiesCollection.driver.Url);
+
+            Console.WriteLine("User Test Done.");
+
+        }
+
+        private DashboardPageObject LogInPreTest()
+        {
+            Console.WriteLine("Running Login Sequence");
+            
+            string LoginUrl = "http://localhost:27015/Account/Login";
+            PropertiesCollection.driver.Manage().Window.Maximize();
+            PropertiesCollection.driver.Navigate().GoToUrl(LoginUrl);
+            Console.WriteLine(PropertiesCollection.driver.Url);
+
+            SignInPageObject pageLogin = new SignInPageObject();
+            var dashboard = pageLogin.Signin(username, password);
+            Assert.That(dashboard.FindCreateTestBtn);
+            Console.WriteLine(PropertiesCollection.driver.Url);
+            Console.WriteLine("Login Sequence finished");
+
+            return dashboard;
+
+        }
 
         [TearDown]
         public void CleanUp()
@@ -148,7 +226,7 @@ namespace OrcaQuizUITest
             PropertiesCollection.driver.Navigate().GoToUrl(testUrl);
             PropertiesCollection.driver.Manage().Window.Maximize();
             currentURL = PropertiesCollection.driver.Url;
-           
+
             Console.WriteLine($" current Url is {currentURL}");
             return currentURL;
         }
