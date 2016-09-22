@@ -77,7 +77,7 @@ namespace OrcaQuizUITest
             string url = "http://localhost:27015/";
             //string testUrl;
             string expectedUrl = "http://localhost:27015/Account/Login";
-
+           
             // go to start page
             StartPageObject start = new StartPageObject();
             expectedUrl = url;
@@ -85,10 +85,10 @@ namespace OrcaQuizUITest
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             /* Test Links for not signed in user*/
-            // Not Yet Functional
+            
             var register = start.TestRegisterCenterBtn();
             expectedUrl = @"Account/Register";
-            Assert.That(PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Register page
+            Assert.That( PropertiesCollection.driver.Url, Does.Contain(expectedUrl)); // Verify Register page
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             start = register.TestHomeButton();
@@ -129,7 +129,7 @@ namespace OrcaQuizUITest
             var dashboard = pageLogin.Signin(String.Empty, String.Empty);
             Assert.That(dashboard.FindIsHome, Is.False);
             Console.WriteLine("Sign in failed with empty, empty");
-
+                
             // Test with only username
             dashboard = pageLogin.Signin(username, String.Empty);
             Assert.That(dashboard.FindIsHome, Is.False);

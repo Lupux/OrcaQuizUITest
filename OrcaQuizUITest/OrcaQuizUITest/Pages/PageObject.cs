@@ -43,7 +43,9 @@ namespace OrcaQuizUITest.Pages
         {
             new Actions(PropertiesCollection.driver).MoveToElement(HomeBtn).Release(HomeBtn).Build().Perform();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(10));
-            wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("UI_test_Btn_Home"))).Clicks();
+            wait.Until<IWebElement>(ExpectedConditions.ElementToBeClickable(By.Id("UI_test_Btn_Home"))).Clicks();
+
+            //HomeBtn.Clicks();
 
             return new DashboardPageObject();
         }
