@@ -199,7 +199,7 @@ namespace OrcaQuizUITest
 
             // Go to dashboard by Home button
             Console.WriteLine("Go To Dashboard");
-            dashboard = editGroup.TestHomeButton();
+            dashboard = editGroup.TestHomeButton(); // Not working/unstable problem clicking element.
 
             // verify that user is part of group. 
             Console.WriteLine("Verify that user is part of group on dashboard");
