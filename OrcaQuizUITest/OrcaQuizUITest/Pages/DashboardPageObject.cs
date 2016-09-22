@@ -15,16 +15,16 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
 
-        [FindsBy(How = How.Id, Using = "UI_Test_Btn_CreateTest")]
-        public IWebElement CreateTestBtn { get; set; }
+        [FindsBy(How = How.Id, Using = "UI_test_txt_isHome")]
+        public IWebElement TxtIsHome { get; set; }
 
 
-        internal bool FindCreateTestBtn()
+        internal bool FindIsHome()
         {
             bool result;
             try
             {
-                result = CreateTestBtn.Displayed;
+                result = TxtIsHome.Displayed;
             }
             catch (NoSuchElementException)
             {

@@ -58,8 +58,7 @@ namespace OrcaQuizUITest.Pages
         {
             PropertiesCollection.driver.FindElement(By.Id("UI_test_btn_Remove_" + user)).Click();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(10));
-            IWebElement element = PropertiesCollection.driver.FindElement(By.Id(user));
-            wait.Until<IWebElement>(ExpectedConditions.StalenessOf(element) );
+            wait.Until(ExpectedConditions.StalenessOf(PropertiesCollection.driver.FindElement(By.Id(user))) );
             return this;
         }
                

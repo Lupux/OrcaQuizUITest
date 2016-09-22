@@ -127,12 +127,12 @@ namespace OrcaQuizUITest
 
             // Test With no value
             var dashboard = pageLogin.Signin(String.Empty, String.Empty);
-            Assert.That(dashboard.FindCreateTestBtn, Does.Not.True);
+            Assert.That(dashboard.FindIsHome, Is.False);
             Console.WriteLine("Sign in failed with empty, empty");
 
             // Test with only username
             dashboard = pageLogin.Signin(username, String.Empty);
-            Assert.That(dashboard.FindCreateTestBtn, Does.Not.True);
+            Assert.That(dashboard.FindIsHome, Is.False);
             Console.WriteLine("Sign in failed with Username, empty");
 
             // Clear textboxes
@@ -140,7 +140,7 @@ namespace OrcaQuizUITest
 
             // Test With inCorrect Values
             dashboard = pageLogin.Signin("Bartolomeus@ludd.luth.se", "Bitter&Kr3nkt");
-            Assert.That(dashboard.FindCreateTestBtn, Does.Not.True);
+            Assert.That(dashboard.FindIsHome, Is.False);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             // Clear textboxes
@@ -148,7 +148,7 @@ namespace OrcaQuizUITest
 
             // Test With Correct Values
             dashboard = pageLogin.Signin(username, password);
-            Assert.That(dashboard.FindCreateTestBtn);
+            Assert.That(dashboard.FindIsHome, Is.True);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             Console.WriteLine("Test Ended");
@@ -170,28 +170,38 @@ namespace OrcaQuizUITest
             ManageGroupsPageObject manageGroups = (ManageGroupsPageObject)dashboard.DDLmenue(AdminChoiseType.Group);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
+            // Verify there are groups
             Assert.That(manageGroups.ThereAreGroups(), Is.False);
 
-
+            // Edit Group With pre deifined groupname
             var editGroup = manageGroups.EditGroup(grpname);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
+            // Check if user is part of group. if so remove user.  
             if (editGroup.IsgroupMember(username))
                 editGroup = editGroup.RemoveUser(username);
-
+            // Add users to group
             manageGroups = editGroup.AddUsers(newUsers);
             Console.WriteLine("Added users");
+            // Pushed to index.
             editGroup = manageGroups.EditGroup(grpname);
             Console.WriteLine("Test if users present");
+
+            // Test that Users is added.
             Assert.That(editGroup.IsgroupMember(username), Is.True);
             Assert.That(editGroup.IsgroupMember(admin), Is.True);
 
+            // remove user admin@admin.com
             editGroup = editGroup.RemoveUser(admin);
             Console.WriteLine("Test That admin@admin is removed");
+            // Verify that that admin is removed.
             Assert.That(editGroup.IsgroupMember(admin), Is.False);
 
-            dashboard = (DashboardPageObject)editGroup.TestHomeButton();
+            // Go to dashboard by Home button
+            Console.WriteLine("Go To Dashboard");
+            dashboard = editGroup.TestHomeButton();
 
+            // verify that user is part of group. 
             Console.WriteLine("Verify that user is part of group on dashboard");
             Assert.That(dashboard.IsGroupMember(grpname));
 
@@ -273,7 +283,7 @@ namespace OrcaQuizUITest
 
             SignInPageObject pageLogin = new SignInPageObject();
             var dashboard = pageLogin.Signin(username, password);
-            Assert.That(dashboard.FindCreateTestBtn);
+            Assert.That(dashboard.FindIsHome);
             Console.WriteLine(PropertiesCollection.driver.Url);
             Console.WriteLine("Login Sequence finished");
 

@@ -29,18 +29,30 @@ namespace OrcaQuizUITest.Pages
 
         #region Generic all Pages Buttons
         // Generic All pages Button
-        // Top Left corner Button
-        [FindsBy(How = How.Id, Using = "Home")]
-        public IWebElement TL_HomeBtn { get; set; }
+       
+        [FindsBy(How = How.Id, Using = "UI_test_Btn_Home")]
+        public IWebElement HomeBtn { get; set; }
         #endregion
 
-        public PageObject TestHomeButton()
+        //navbar-brand
+        [FindsBy(How = How.ClassName, Using = "navbar-brand")]
+        public IWebElement TL_HomeBtn { get; set; }
+
+
+        internal DashboardPageObject TestHomeButton()
+        {
+            new Actions(PropertiesCollection.driver).MoveToElement(HomeBtn).Release(HomeBtn).Build().Perform();
+            WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(10));
+            wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("UI_test_Btn_Home"))).Clicks();
+
+            return new DashboardPageObject();
+        }
+        internal DashboardPageObject TestHomeLinkButton()
         {
             TL_HomeBtn.Clicks();
 
-            return new PageObject();
+            return new DashboardPageObject();
         }
-
 
         internal PageObject DDLmenue(AdminChoiseType choice)
         {
