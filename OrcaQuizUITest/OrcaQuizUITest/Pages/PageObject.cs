@@ -25,24 +25,29 @@ namespace OrcaQuizUITest.Pages
         public IWebElement AdminDropDownGroup { get; set; }
 
         #endregion
+        #region Scroll up button
+        [FindsBy(How = How.Id, Using = "goTop")]
+        public IWebElement BtnGoToTop { get; set; }
+
+        #endregion
+
 
 
         #region Generic all Pages Buttons
         // Generic All pages Button
-       
+
         [FindsBy(How = How.Id, Using = "UI_test_Btn_Home")]
         public IWebElement HomeBtn { get; set; }
-        #endregion
 
         //navbar-brand
         [FindsBy(How = How.ClassName, Using = "navbar-brand")]
         public IWebElement TL_HomeBtn { get; set; }
-
+        #endregion
 
         internal DashboardPageObject TestHomeButton()
         {
             new Actions(PropertiesCollection.driver).MoveToElement(HomeBtn).Release(HomeBtn).Build().Perform();
-            WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(20));
             wait.Until<IWebElement>(ExpectedConditions.ElementToBeClickable(By.Id("UI_test_Btn_Home"))).Clicks();
 
             //HomeBtn.Clicks();
@@ -54,6 +59,11 @@ namespace OrcaQuizUITest.Pages
             TL_HomeBtn.Clicks();
 
             return new DashboardPageObject();
+        }
+
+        internal void GoToTop()
+        {
+            BtnGoToTop.Clicks();
         }
 
         internal PageObject DDLmenue(AdminChoiseType choice)

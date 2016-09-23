@@ -13,22 +13,22 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
 
-        [FindsBy(How = How.Id, Using = "UI_test_btn_back_top")]
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_back_top']")]
         public IWebElement BtnBackTop { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_txt_EditGroupName")]
+        [FindsBy(How = How.CssSelector, Using = "input[class*= 'UI_test_txt_EditGroupName']")]
         public IWebElement TxtEditGroupName { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_txt_newUsers")]
+        [FindsBy(How = How.Id, Using = "NewUserEmails")]
         public IWebElement TxtNewUsers { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_btn_saveEdit")]
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_saveEdit']")]
         public IWebElement BtnSaveEdit { get; set; }
         
-        [FindsBy(How = How.Id, Using = "UI_test_Txt_grp_IsEmpty")]
+        [FindsBy(How = How.CssSelector, Using = "p[class*= 'UI_test_Txt_grp_IsEmpty']")]
         public IWebElement TxtGrpIsEmpty { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_btn_back_bottom")]
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_back_bottom']")]
         public IWebElement BtnBackBottom { get; set; }
 
 
@@ -56,7 +56,7 @@ namespace OrcaQuizUITest.Pages
 
         internal EditGroupPageObject RemoveUser(string user)
         {
-            PropertiesCollection.driver.FindElement(By.Id("UI_test_btn_Remove_" + user)).Click();
+            PropertiesCollection.driver.FindElement(By.CssSelector("button[class*= 'UI_test_btn_Remove_" + user+"']")).Click();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(10));
             wait.Until(ExpectedConditions.StalenessOf(PropertiesCollection.driver.FindElement(By.Id(user))) );
             return this;
