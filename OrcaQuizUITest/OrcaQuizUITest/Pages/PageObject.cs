@@ -83,7 +83,23 @@ namespace OrcaQuizUITest.Pages
             }
             if (choice == AdminChoiseType.CreateTest)
             {
+                wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("a[class*= 'UI_test_DDL_Admin_CreateTest']"))).Clicks();
                 return new CreateTestPageObject();
+            }
+            if (choice == AdminChoiseType.CreateGroup)
+            {
+                wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("a[class*= 'UI_test_DDL_Admin_CreateGroup']"))).Clicks();
+                return new PageObject();
+            }
+            if (choice == AdminChoiseType.UserStatistics)
+            {
+                wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("a[class*= 'UI_test_DDL_User_Statistics']"))).Clicks();
+                return new PageObject();
+            }
+            if (choice == AdminChoiseType.GroupStatistics)
+            {
+                wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("a[class*= 'UI_test_DDL_Group_Statistics']"))).Clicks();
+                return new PageObject();
             }
             return null;
         }
