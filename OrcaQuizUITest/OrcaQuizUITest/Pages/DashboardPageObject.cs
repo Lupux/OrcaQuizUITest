@@ -15,7 +15,7 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
 
-        [FindsBy(How = How.Id, Using = "UI_test_txt_isHome")]
+        [FindsBy(How = How.ClassName, Using = "UI_test_txt_isHome")]
         public IWebElement TxtIsHome { get; set; }
 
 
@@ -38,7 +38,7 @@ namespace OrcaQuizUITest.Pages
         {
             try
             {
-                return PropertiesCollection.driver.FindElement(By.Id("UI_test_txt_groupMembership_"+grpName)).Displayed;
+                return PropertiesCollection.driver.FindElement(By.ClassName("UI_test_txt_groupMembership_"+grpName)).Displayed;
             }
             catch (NoSuchElementException)
             {
