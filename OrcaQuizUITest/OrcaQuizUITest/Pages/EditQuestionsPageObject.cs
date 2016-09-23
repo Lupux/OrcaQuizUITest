@@ -58,7 +58,7 @@ namespace OrcaQuizUITest.Pages
 
 
 
-        internal EditQuestionsPageObject WriteQuestion(QuestionType type, QuestionType, string questionText)
+        internal EditQuestionsPageObject WriteQuestion(QuestionType type, string questionText)
         {
             if (type == QuestionType.SingleChoice)
                 DDLQuestionType.SelectDropDown("Singel Choice");
