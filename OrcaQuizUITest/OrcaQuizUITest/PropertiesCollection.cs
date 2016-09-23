@@ -28,6 +28,15 @@ namespace OrcaQuizUITest
         GroupStatistics
     }
 
+    enum QuestionType
+    {
+        SingleChoice,
+        MultipleChoice,
+        TextSingleLine,
+        TextMultiLine
+    }
+
+
     class PropertiesCollection
     {
 

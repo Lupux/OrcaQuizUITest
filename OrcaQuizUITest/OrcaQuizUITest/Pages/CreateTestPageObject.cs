@@ -1,5 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
+using OrcaQuizUITest.Tests;
+
 
 namespace OrcaQuizUITest.Pages
 {
@@ -10,44 +12,71 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
 
         }
-        [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_Back_top']")]
-        public IWebElement BtnBack { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_Save_top']")]
-        public IWebElement BtnSaveTop { get; set; }
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Back_top']")]
+        private IWebElement BtnBack { get; set; }
+
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Save_top']")]
+        private IWebElement BtnSaveTop { get; set; }
 
         [FindsBy(How = How.Id, Using = "TestName")]
-        public IWebElement TxtTestName { get; set; }
+        private IWebElement TxtTestName { get; set; }
 
 
         [FindsBy(How = How.Id, Using = "Description")]
-        public IWebElement TxtTestDescription{ get; set; }
+        private IWebElement TxtTestDescription{ get; set; }
 
         [FindsBy(How = How.Id, Using = "Tags")]
-        public IWebElement TxtTestTags { get; set; }
+        private IWebElement TxtTestTags { get; set; }
 
         [FindsBy(How = How.Id, Using = "TimeLimitInMinutes")]
-        public IWebElement TxtTestTimeInMinutes{ get; set; }
+        private IWebElement TxtTestTimeInMinutes{ get; set; }
 
         [FindsBy(How = How.Id, Using = "PassPercentage")]
-        public IWebElement TxtTestPassPercentage { get; set; }
+        private IWebElement TxtTestPassPercentage { get; set; }
 
         [FindsBy(How = How.Id, Using = "ShowPassOrFailCheckboxID")]
-        public IWebElement CheckBoxShowPassOrFail{ get; set; }
+        private IWebElement CheckBoxShowPassOrFail{ get; set; }
 
         [FindsBy(How = How.Id, Using = "ShowTestScore")]
-        public IWebElement CheckBoxShowTestScore { get; set; }
+        private IWebElement CheckBoxShowTestScore { get; set; }
 
         [FindsBy(How = How.Id, Using = "CustomCompletionMessage")]
-        public IWebElement TxtCustomCompletionMessage { get; set; }
+        private IWebElement TxtCustomCompletionMessage { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_Back']")]
-        public IWebElement BtnBackBottom { get; set; }
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Back']")]
+        private IWebElement BtnBackBottom { get; set; }
 
         [FindsBy(How = How.Id, Using = "saveButton")]
-        public IWebElement BtnSave { get; set; }
+        private IWebElement BtnSave { get; set; }
+
+        internal CreateTestPageObject CreateTestFillForm(string name, string description, string tags, int timeInMinutes, int passProcent)
+        {
+            TxtTestName.EnterText(name);
+            TxtTestDescription.EnterText(description);
+            TxtTestTags.EnterText(tags);
+            TxtTestTimeInMinutes.EnterText(timeInMinutes.ToString());
+            TxtTestPassPercentage.EnterText(passProcent.ToString());
+            return this;
+        }
 
 
+        internal CreateTestPageObject OnCompetionFillForm(bool showPassorFail, bool showTestScore, string customCompleteMessage)
+        {
+            if (showPassorFail)
+                CheckBoxShowPassOrFail.Clicks();
+            if (showTestScore)
+                CheckBoxShowTestScore.Clicks();
 
+            TxtCustomCompletionMessage.EnterText(customCompleteMessage);
+
+            return this;
+        }
+
+        internal PageObject SaveChanges()
+        {
+            BtnSave.Clicks();
+            return new ManageQuestionsPageObject();
+        }
     }
 }

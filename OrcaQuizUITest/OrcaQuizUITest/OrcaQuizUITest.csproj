@@ -87,7 +87,9 @@
     <Compile Include="Pages\CreateTestPageObject.cs" />
     <Compile Include="Pages\DashboardPageObject.cs" />
     <Compile Include="Pages\EditGroupPageObject.cs" />
+    <Compile Include="Pages\EditQuestionsPageObject.cs" />
     <Compile Include="Pages\ManageGroupsPageObject.cs" />
+    <Compile Include="Pages\ManageQuestionsPageObject.cs" />
     <Compile Include="Pages\ManageUserPageObject.cs" />
     <Compile Include="Pages\PageObject.cs" />
     <Compile Include="Pages\RegisterPageObject.cs" />
