@@ -17,26 +17,21 @@ namespace OrcaQuizUITest.Pages
         }
 
         // Big Screen Center Buttons
-        [FindsBy(How = How.Id, Using = "UI_test_Btn_Register_BigScreen")]
-        public IWebElement C_B_RegisterBtn { get; set; }
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Register']")]
+        public IWebElement C_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_Btn_Login_BigScreen")]
-        public IWebElement C_B_SignInBtn { get; set; }
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Login']")]
+        public IWebElement C_SignInBtn { get; set; }
         
-        // Small Screen Center Buttons
-        [FindsBy(How = How.Id, Using = "UI_test_Btn_Register_SmalScreen")]
-        public IWebElement C_S_RegisterBtn { get; set; }
-
-        [FindsBy(How = How.Id, Using = "UI_test_Btn_Login_SmallScreen")]
-        public IWebElement C_S_SignInBtn { get; set; }
+        
 
         #region Generic Signin/register buttons
         //Generic Many pages buttons
         // Top Right corner buttons/links
-        [FindsBy(How = How.Id, Using = "UI_test_Link_Register")]
+        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Register")]
         public IWebElement TR_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_Link_Signin")]
+        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Signin")]
         public IWebElement TR_SignInBtn { get; set; }
         #endregion
 
@@ -50,14 +45,14 @@ namespace OrcaQuizUITest.Pages
         // TestCases:
         public RegisterPageObject TestRegisterCenterBtn()
         {
-            C_B_RegisterBtn.Clicks();
+            C_RegisterBtn.Clicks();
 
             return new RegisterPageObject();
         }
 
         public SignInPageObject TestSignInCenterBtn()
         {
-            C_B_SignInBtn.Clicks();
+            C_SignInBtn.Clicks();
 
             return new SignInPageObject();
         }

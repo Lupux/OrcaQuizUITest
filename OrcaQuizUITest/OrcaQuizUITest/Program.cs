@@ -185,7 +185,7 @@ namespace OrcaQuizUITest
 
             // Get to ManageGroups
             Console.WriteLine("Go to Manage group page from Dashboard");
-            ManageGroupsPageObject manageGroups = (ManageGroupsPageObject)dashboard.DDLmenue(AdminChoiseType.Group);
+            ManageGroupsPageObject manageGroups = (ManageGroupsPageObject)dashboard.DDLmenue(AdminChoiseType.ManageGroup);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             // Verify there are groups
@@ -247,7 +247,7 @@ namespace OrcaQuizUITest
 
             // Get to Manage Users
             Console.WriteLine("Goto ManageUser page");
-            ManageUserPageObject manageUsers = (ManageUserPageObject)dashboard.DDLmenue(AdminChoiseType.Users);
+            ManageUserPageObject manageUsers = (ManageUserPageObject)dashboard.DDLmenue(AdminChoiseType.ManageUsers);
             
             // Search admin
             Console.WriteLine("Searching for admin");

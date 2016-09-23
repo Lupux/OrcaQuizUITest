@@ -71,12 +71,12 @@ namespace OrcaQuizUITest.Pages
             new Actions(PropertiesCollection.driver).MoveToElement(AdminDropDown).Release(AdminDropDown).Build().Perform();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(10));
 
-            if (choice == AdminChoiseType.Group)
+            if (choice == AdminChoiseType.ManageGroup)
             {
                 wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("a[class*= 'UI_test_DDL_Admin_Groups']"))).Clicks();
                 return new ManageGroupsPageObject();
             }
-            if (choice == AdminChoiseType.Users)
+            if (choice == AdminChoiseType.ManageUsers)
             {
                 wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("a[class*= 'UI_test_DDL_Admin_Users']"))).Clicks();
                 return new ManageUserPageObject();

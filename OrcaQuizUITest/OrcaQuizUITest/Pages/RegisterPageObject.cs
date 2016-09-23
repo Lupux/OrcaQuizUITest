@@ -27,20 +27,20 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.Id, Using = "PasswordCheck")]
         public IWebElement TxtPasswordCheck { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_Btn_Register")]
+        [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_Register']")]
         public IWebElement RegisterBtn { get; set; }
         #endregion
 
-        [FindsBy(How = How.Id, Using = "UI_test_Link_Login")]
+        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Login")]
         public IWebElement LoginLink { get; set; }
 
         #region Generic Signin/register buttons
         //Generic Many pages buttons
         // Top Right corner buttons/links
-        [FindsBy(How = How.Id, Using = "UI_test_Link_Register")]
+        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Register")]
         public IWebElement TR_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_Link_Signin")]
+        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Signin")]
         public IWebElement TR_SignInBtn { get; set; }
         #endregion
 

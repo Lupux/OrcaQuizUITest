@@ -13,26 +13,26 @@ namespace OrcaQuizUITest.Pages
         }
 
         #region Sign in form
-        [FindsBy(How = How.Id, Using = "UI_test_txt_UserName")]
+        [FindsBy(How = How.CssSelector, Using = "input[class*= 'UI_test_txt_UserName']")]
         public IWebElement TxtUsername { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_txt_Password")]
+        [FindsBy(How = How.CssSelector, Using = "input[class*= 'UI_test_txt_Password']")]
         public IWebElement TxtPassword { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_Btn_SignIn")]
+        [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_SignIn']")]
         public IWebElement SignInBtn { get; set; }
         #endregion
 
-        [FindsBy(How = How.Id, Using = "UI_test_Link_Register")]
+        [FindsBy(How = How.CssSelector, Using = "a[class*= 'UI_test_Link_Register']")]
         public IWebElement RegisterLink { get; set; }
 
         #region Generic Signin/register buttons
         //Generic Many pages buttons
         // Top Right corner buttons/links
-        [FindsBy(How = How.Id, Using = "UI_test_Link_Register")]
+        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Register")]
         public IWebElement TR_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_Link_Signin")]
+        [FindsBy(How = How.ClassName , Using = "UI_test_Link_Signin")]
         public IWebElement TR_SignInBtn { get; set; }
         #endregion
 
