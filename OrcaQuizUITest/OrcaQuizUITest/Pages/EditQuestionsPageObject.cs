@@ -82,9 +82,16 @@ namespace OrcaQuizUITest.Pages
             return new EditQuestionsPageObject();
         }
 
-        internal EditQuestionsPageObject AddAnswer(string answerTxt, bool isCorrect)
+        internal EditQuestionsPageObject OpenNewAnswer()
         {
+            BtnAddAnswer.Clicks();
+            return new EditQuestionsPageObject();
+        }
 
+
+        internal EditQuestionsPageObject AddAnswerTxtAndSave(string answerTxt, bool isCorrect)
+        {
+            
 
             // Get answerId from URL
             string url = PropertiesCollection.driver.Url;
