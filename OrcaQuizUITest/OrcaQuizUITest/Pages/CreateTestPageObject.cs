@@ -10,6 +10,11 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
 
         }
+        [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_Back_top']")]
+        public IWebElement BtnBack { get; set; }
+
+        [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_Save_top']")]
+        public IWebElement BtnSaveTop { get; set; }
 
         [FindsBy(How = How.Id, Using = "TestName")]
         public IWebElement TxtTestName { get; set; }
@@ -37,7 +42,7 @@ namespace OrcaQuizUITest.Pages
         public IWebElement TxtCustomCompletionMessage { get; set; }
 
         [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_Back']")]
-        public IWebElement BtnBack { get; set; }
+        public IWebElement BtnBackBottom { get; set; }
 
         [FindsBy(How = How.Id, Using = "saveButton")]
         public IWebElement BtnSave { get; set; }
