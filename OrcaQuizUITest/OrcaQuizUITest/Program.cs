@@ -204,11 +204,11 @@ namespace OrcaQuizUITest
                 editGroup = editGroup.RemoveUser(username);
             // Add users to group
             Console.WriteLine("Test to add two users " + newUsers);
-            manageGroups = editGroup.AddUsers(newUsers);
+            editGroup = editGroup.AddUsers(newUsers);
 
-            // Pushed to index.
-            Console.WriteLine("Return to edit page");
-            editGroup = manageGroups.EditGroup(grpname);
+            // Assert change has happened
+            Console.WriteLine("Test that Change has happened");
+            Assert.That(editGroup.VerífyChage(), Is.True);
 
             // Test that Users is added.
             Console.WriteLine("Check that new users are added");

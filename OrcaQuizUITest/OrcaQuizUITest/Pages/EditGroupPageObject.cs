@@ -3,6 +3,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using OrcaQuizUITest.Tests;
 using OpenQA.Selenium.Support.UI;
+using NUnit.Framework;
 
 namespace OrcaQuizUITest.Pages
 {
@@ -12,6 +13,10 @@ namespace OrcaQuizUITest.Pages
         {
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
+        
+        [FindsBy(How = How.CssSelector, Using = "div[class*= 'UI_test_ViewBag']")]
+        public IWebElement TxtViewBag { get; set; }
+
 
         [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_back_top']")]
         public IWebElement BtnBackTop { get; set; }
@@ -45,13 +50,13 @@ namespace OrcaQuizUITest.Pages
             }
         }
 
-        internal ManageGroupsPageObject AddUsers(string users)
+        internal EditGroupPageObject AddUsers(string users)
         {
             TxtNewUsers.EnterText(users);
 
             BtnSaveEdit.Clicks();
 
-            return new ManageGroupsPageObject();
+            return this;
         }
 
         internal EditGroupPageObject RemoveUser(string user)
@@ -62,11 +67,11 @@ namespace OrcaQuizUITest.Pages
             return this;
         }
                
-        internal ManageGroupsPageObject EditGroupName(string grpName)
+        internal EditGroupPageObject EditGroupName(string grpName)
         {
             TxtEditGroupName.EnterText(grpName);
             BtnSaveEdit.Clicks();
-            return new ManageGroupsPageObject();
+            return this;
         }
 
         internal ManageGroupsPageObject TopGoBack()
@@ -90,6 +95,19 @@ namespace OrcaQuizUITest.Pages
             {
 
                 return false;
+            }
+        }
+
+        internal bool VerífyChage()
+        {
+            try
+            {
+                return TxtViewBag.Displayed;
+            }
+            catch (NoSuchElementException)
+            {
+
+                return false; 
             }
         }
 

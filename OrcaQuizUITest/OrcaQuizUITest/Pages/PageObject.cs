@@ -13,15 +13,15 @@ namespace OrcaQuizUITest.Pages
         #region Generic Admin dropdown
 
         // Placeholder for dropdown links UI_test_DDL_Admin
-        [FindsBy(How = How.Id, Using = "UI_test_DDL_Admin")]
+        [FindsBy(How = How.CssSelector, Using = "a[class*= 'UI_test_DDL_Admin']")]
         public IWebElement AdminDropDown { get; set; }
 
 
-        [FindsBy(How = How.Id, Using = "UI_test_DDL_Admin_Users")]
+        [FindsBy(How = How.CssSelector, Using = "a[class*= 'UI_test_DDL_Admin_Users']")]
         public IWebElement AdminDropDownUser { get; set; }
 
 
-        [FindsBy(How = How.Id, Using = "UI_test_DDL_Admin_Groups")]
+        [FindsBy(How = How.CssSelector, Using = "a[class*= 'UI_test_DDL_Admin_Groups']")]
         public IWebElement AdminDropDownGroup { get; set; }
 
         #endregion
@@ -36,7 +36,7 @@ namespace OrcaQuizUITest.Pages
         #region Generic all Pages Buttons
         // Generic All pages Button
 
-        [FindsBy(How = How.Id, Using = "UI_test_Btn_Home")]
+        [FindsBy(How = How.ClassName, Using = "UI_test_Btn_Home")]
         public IWebElement HomeBtn { get; set; }
 
         //navbar-brand
@@ -48,7 +48,7 @@ namespace OrcaQuizUITest.Pages
         {
             new Actions(PropertiesCollection.driver).MoveToElement(HomeBtn).Release(HomeBtn).Build().Perform();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(20));
-            wait.Until<IWebElement>(ExpectedConditions.ElementToBeClickable(By.Id("UI_test_Btn_Home"))).Clicks();
+            wait.Until<IWebElement>(ExpectedConditions.ElementToBeClickable(By.ClassName("UI_test_Btn_Home"))).Clicks();
 
             //HomeBtn.Clicks();
 
@@ -73,12 +73,12 @@ namespace OrcaQuizUITest.Pages
 
             if (choice == AdminChoiseType.Group)
             {
-                wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("UI_test_DDL_Admin_Groups"))).Clicks();
+                wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("a[class*= 'UI_test_DDL_Admin_Groups']"))).Clicks();
                 return new ManageGroupsPageObject();
             }
             if (choice == AdminChoiseType.Users)
             {
-                wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("UI_test_DDL_Admin_Users"))).Clicks();
+                wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("a[class*= 'UI_test_DDL_Admin_Users']"))).Clicks();
                 return new ManageUserPageObject();
             }
             if (choice == AdminChoiseType.CreateTest)
