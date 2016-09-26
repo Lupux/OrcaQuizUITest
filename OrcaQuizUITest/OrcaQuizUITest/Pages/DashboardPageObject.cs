@@ -61,7 +61,7 @@ namespace OrcaQuizUITest.Pages
         {
             try
             {
-           return PropertiesCollection.driver.FindElement(By.ClassName(quizName)).Displayed;
+           return PropertiesCollection.driver.FindElement(By.CssSelector("[class*= '"+quizName + "']")).Displayed;
 
             }
             catch (NoSuchElementException)
