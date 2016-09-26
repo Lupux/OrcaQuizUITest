@@ -18,6 +18,10 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.ClassName, Using = "UI_test_txt_isHome")]
         public IWebElement TxtIsHome { get; set; }
 
+        [FindsBy(How = How.ClassName, Using = "UI_Test_Btn_CreateTest")]
+        public IWebElement BtnCreateTest { get; set; }
+
+
 
         internal bool FindIsHome()
         {
@@ -38,7 +42,7 @@ namespace OrcaQuizUITest.Pages
         {
             try
             {
-                return PropertiesCollection.driver.FindElement(By.ClassName("UI_test_txt_groupMembership_"+grpName)).Displayed;
+                return PropertiesCollection.driver.FindElement(By.CssSelector("[class*= 'UI_test_txt_groupMembership_"+grpName+"']")).Displayed;
             }
             catch (NoSuchElementException)
             {
@@ -46,5 +50,26 @@ namespace OrcaQuizUITest.Pages
                 return false;
             }
         }
+
+        internal CreateTestPageObject CreateTest()
+        {
+            BtnCreateTest.Clicks();
+            return new CreateTestPageObject();
+        }
+
+        internal bool FindQuiz(string quizName)
+        {
+            try
+            {
+           return PropertiesCollection.driver.FindElement(By.ClassName(quizName)).Displayed;
+
+            }
+            catch (NoSuchElementException)
+            {
+
+                return false;
+            }
+        }
+
     }
 }

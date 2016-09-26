@@ -73,7 +73,7 @@ namespace OrcaQuizUITest.Pages
             return this;
         }
 
-        internal PageObject SaveChanges()
+        internal ManageQuestionsPageObject SaveChanges()
         {
             BtnSave.Clicks();
             return new ManageQuestionsPageObject();

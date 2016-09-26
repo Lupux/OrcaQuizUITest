@@ -14,7 +14,7 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
         
-        [FindsBy(How = How.CssSelector, Using = "div[class*= 'UI_test_ViewBag']")]
+        [FindsBy(How = How.CssSelector, Using = "p[class*= 'UI_test_ViewBag']")]
         public IWebElement TxtViewBag { get; set; }
 
 
@@ -33,7 +33,7 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.CssSelector, Using = "p[class*= 'UI_test_Txt_grp_IsEmpty']")]
         public IWebElement TxtGrpIsEmpty { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_back_bottom']")]
+        [FindsBy(How = How.CssSelector, Using = "a[class*= 'UI_test_btn_back_bottom']")]
         public IWebElement BtnBackBottom { get; set; }
 
 

@@ -11,8 +11,10 @@ namespace OrcaQuizUITest
 {
     class Program
     {
-        private static string username = "admin@quiz.com";
-        private static string password = "P@ssw0rd";
+        private static string _username = "admin@quiz.com";
+        private static string _password = "P@ssw0rd";
+
+        private string _UiTestQuizName;
 
         static void Main(string[] args)
         {
@@ -29,6 +31,13 @@ namespace OrcaQuizUITest
             // Navigate to startPage
             PropertiesCollection.driver.Navigate().GoToUrl(url);
             Console.WriteLine("Init test");
+        }
+
+        [TearDown]
+        public void CleanUp()
+        {
+            PropertiesCollection.driver.Close();
+            Console.WriteLine("Cleaning up after test run");
         }
 
         [Test]
@@ -144,7 +153,7 @@ namespace OrcaQuizUITest
 
             // Test with only username
             Console.WriteLine("Test to sign in with only username");
-            dashboard = pageLogin.Signin(username, String.Empty);
+            dashboard = pageLogin.Signin(_username, String.Empty);
             Assert.That(dashboard.FindIsHome, Is.False);
             Console.WriteLine("Sign in failed with Username, empty. Test Pased");
 
@@ -163,7 +172,7 @@ namespace OrcaQuizUITest
 
             // Test With Correct Values
             Console.WriteLine("Test to sign in with Correct Values");
-            dashboard = pageLogin.Signin(username, password);
+            dashboard = pageLogin.Signin(_username, _password);
             Assert.That(dashboard.FindIsHome, Is.True);
             Console.WriteLine(PropertiesCollection.driver.Url);
             Console.WriteLine("Sign in succeeded");
@@ -180,7 +189,7 @@ namespace OrcaQuizUITest
             // Set up Valus for test
             string grpname= "Our first test group";
             string admin = "admin@admin.com";
-            string newUsers = username + ", "+admin;
+            string newUsers = _username + ", "+admin;
 
 
             // Get to ManageGroups
@@ -200,8 +209,8 @@ namespace OrcaQuizUITest
 
             // Check if user is part of group. if so remove user.  
             Console.WriteLine("Check if user is part of group, if so remove from group");
-            if (editGroup.IsgroupMember(username))
-                editGroup = editGroup.RemoveUser(username);
+            if (editGroup.IsgroupMember(_username))
+                editGroup = editGroup.RemoveUser(_username);
             // Add users to group
             Console.WriteLine("Test to add two users " + newUsers);
             editGroup = editGroup.AddUsers(newUsers);
@@ -212,7 +221,7 @@ namespace OrcaQuizUITest
 
             // Test that Users is added.
             Console.WriteLine("Check that new users are added");
-            Assert.That(editGroup.IsgroupMember(username), Is.True);
+            Assert.That(editGroup.IsgroupMember(_username), Is.True);
             Assert.That(editGroup.IsgroupMember(admin), Is.True);
 
             // remove user admin@admin.com
@@ -258,7 +267,7 @@ namespace OrcaQuizUITest
              * Go to ViewUser page of self
              */
             Console.WriteLine("Find username and go to username page");
-            ViewUserPageObject viewUser = manageUsers.GetUserPage(username);
+            ViewUserPageObject viewUser = manageUsers.GetUserPage(_username);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             /* Check if current user is same as loged in:
@@ -309,6 +318,82 @@ namespace OrcaQuizUITest
 
         }
 
+        [Test]
+        public void MakeAQuizTest()
+        {
+            Console.WriteLine("Start Creating a Quiz");
+
+            Console.WriteLine("Login");
+           var dashboard=  LogInPreTest();
+
+            _UiTestQuizName = "UiTest_" + DateTime.UtcNow;
+
+            Console.WriteLine("Get to create test by Dashboard page button.");
+
+            var createTest = dashboard.CreateTest();
+
+            Console.WriteLine("Start filling out form");
+            createTest.CreateTestFillForm(_UiTestQuizName, "This is a UI Test Quiz", String.Empty, 1, 50);
+            Console.WriteLine(_UiTestQuizName);
+            Console.WriteLine("Fill in on Completion form");
+
+            createTest.OnCompetionFillForm(true, true, "The test Quiz is run ");
+
+            Console.WriteLine("Save Quiz");
+            var setupQuestions = createTest.SaveChanges();
+
+            Console.WriteLine("Add a Question");
+            var addQuestion = setupQuestions.AddQuestion();
+
+            Console.WriteLine("Set QuestionType and add question text");
+
+            addQuestion.WriteQuestion(QuestionType.SingleChoice, "True or False?");
+
+            addQuestion.SaveQuestion();
+            Console.WriteLine("Add new answer(Correct)");
+            addQuestion.OpenNewAnswer();
+            addQuestion.AddAnswerTxtAndSave("True", true);
+
+            Console.WriteLine("Adding non correctanswer");
+            addQuestion.OpenNewAnswer();
+            addQuestion.AddAnswerTxtAndSave("False", false);
+
+            Console.WriteLine("Save Question and start a new question directly");
+           var addaQuestion = addQuestion.NewQuestion();
+
+            Console.WriteLine("Set QuestionType and add question text");
+
+            addQuestion.WriteQuestion(QuestionType.MultipleChoice, "This,That and what?");
+
+            addQuestion.SaveQuestion();
+            Console.WriteLine("Add new answer(Correct)");
+            addQuestion.OpenNewAnswer();
+            addQuestion.AddAnswerTxtAndSave("Tis", true);
+
+            Console.WriteLine("Adding non correctanswer");
+            addQuestion.OpenNewAnswer(); Console.WriteLine("Opened new Question");
+            addQuestion.AddAnswerTxtAndSave("Not", false);
+
+            Console.WriteLine("Add new answer(Correct)");
+            addQuestion.OpenNewAnswer();
+            addQuestion.AddAnswerTxtAndSave("Whut", true);
+
+
+            Console.WriteLine("Save and return to manage question site");
+            var managequestions = addQuestion.SaveAndReturn();
+
+            Console.WriteLine("Return to home");
+            dashboard= managequestions.ReturnToDashboard();
+
+
+            Console.WriteLine("Verify that test is made and visible");
+            Assert.That(dashboard.FindQuiz(_UiTestQuizName),Is.True);
+
+
+        }
+
+
+     
         private DashboardPageObject LogInPreTest()
         {
             Console.WriteLine("Running Login Sequence");
@@ -319,7 +404,7 @@ namespace OrcaQuizUITest
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             SignInPageObject pageLogin = new SignInPageObject();
-            var dashboard = pageLogin.Signin(username, password);
+            var dashboard = pageLogin.Signin(_username, _password);
             Assert.That(dashboard.FindIsHome);
             Console.WriteLine(PropertiesCollection.driver.Url);
             Console.WriteLine("Login Sequence finished");
@@ -328,14 +413,9 @@ namespace OrcaQuizUITest
 
         }
 
-        [TearDown]
-        public void CleanUp()
-        {
-            PropertiesCollection.driver.Close();
-            Console.WriteLine("Cleaning up after test run");
-        }
 
-        public string AccessTest(string testUrl)
+
+        private string AccessTest(string testUrl)
         {
             string currentURL;
             PropertiesCollection.driver.Navigate().GoToUrl(testUrl);

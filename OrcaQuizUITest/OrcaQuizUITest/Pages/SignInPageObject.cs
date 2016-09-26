@@ -19,7 +19,7 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.CssSelector, Using = "input[class*= 'UI_test_txt_Password']")]
         public IWebElement TxtPassword { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "buttn[class*= 'UI_test_Btn_SignIn']")]
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_SignIn']")]
         public IWebElement SignInBtn { get; set; }
         #endregion
 
