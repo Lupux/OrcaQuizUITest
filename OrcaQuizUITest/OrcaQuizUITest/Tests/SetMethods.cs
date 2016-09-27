@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrcaQuizUITest.Tests
 {
-    public static class SetMethodes
+    public static class SetMethods
     {
         /// <summary>
         /// Extended method for entering text in the contrl

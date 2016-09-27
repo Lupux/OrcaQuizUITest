@@ -5,23 +5,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace OrcaQuizUITest
 {
     class Program
     {
-        private static string _username = "admin@quiz.com";
+        private static string _username = "uitest@admin.com";
         private static string _password = "P@ssw0rd";
-
+        private static string _admin = "admin@admin.com";
+        private static string _adminPassword = "@Dmin123";
         private string _UiTestQuizName;
 
         static void Main(string[] args)
         {
         }
 
-        [SetUp]
-        public void Initialize()
+        
+
+        [SetUp] 
+        public void RunBeforEachTest()
         {
             //Local version URL:
             string url = "http://localhost:27015/";
@@ -33,14 +36,14 @@ namespace OrcaQuizUITest
             Console.WriteLine("Init test");
         }
 
-        [TearDown]
-        public void CleanUp()
+        [TearDown] 
+        public void RunAfterEachTest()
         {
             PropertiesCollection.driver.Close();
             Console.WriteLine("Cleaning up after test run");
         }
 
-        [Test]
+        [Test, Order(1)]
         public void AccessDeniedTests()
         {
             Console.WriteLine("Running access test ");
@@ -84,7 +87,7 @@ namespace OrcaQuizUITest
         }
 
 
-        [Test]
+        [Test, Order(2)]
         public void TestLinksForNotSignedIn()
         {
             Console.WriteLine("Running TestLinksForNotSignedIn Test!");
@@ -134,7 +137,7 @@ namespace OrcaQuizUITest
             Console.WriteLine("Test Ended");
         }
 
-        [Test]
+        [Test, Order(3)]
         public void LoginTests()
         {
             Console.WriteLine("Running LoginTest Test!");
@@ -172,7 +175,7 @@ namespace OrcaQuizUITest
 
             // Test With Correct Values
             Console.WriteLine("Test to sign in with Correct Values");
-            dashboard = pageLogin.Signin(_username, _password);
+            dashboard = pageLogin.Signin(_admin, _adminPassword);
             Assert.That(dashboard.FindIsHome, Is.True);
             Console.WriteLine(PropertiesCollection.driver.Url);
             Console.WriteLine("Sign in succeeded");
@@ -180,79 +183,36 @@ namespace OrcaQuizUITest
             Console.WriteLine("Test Ended");
         }
 
-        [Test]
-        public void EditGroupWithAddAndRemoveMembersTest()
+        [Test, Order(4)]
+        public void CreateUserTest()
         {
-            Console.WriteLine("Running GroupsTest");
-            // Login and prepare for test. 
-            var dashboard = LogInPreTest();
-            // Set up Valus for test
-            string grpname= "Our first test group";
-            string admin = "admin@admin.com";
-            string newUsers = _username + ", "+admin;
+            Console.WriteLine("Running CreateUserTest Test!");
+
+            string firstName = "UItestAdmin";
+            string lastName = "UItest";
+            string email = _username;
+            string password = _password;
 
 
-            // Get to ManageGroups
-            Console.WriteLine("Go to Manage group page from Dashboard");
-            ManageGroupsPageObject manageGroups = (ManageGroupsPageObject)dashboard.DDLmenue(AdminChoiseType.ManageGroup);
-            Console.WriteLine(PropertiesCollection.driver.Url);
+            // go to start page
+            StartPageObject start = new StartPageObject();
 
-            // Verify there are groups
-            Console.WriteLine("verify that there are groups");
-            Assert.That(manageGroups.ThereAreGroups(), Is.False);
+            Console.WriteLine("From Startpage test register button center screen");
+            var register = start.TestRegisterCenterBtn();
 
-            // Edit Group With pre deifined groupname
-            Console.WriteLine("Press edit on " + grpname + " edit button");
-            var editGroup = manageGroups.EditGroup(grpname);
-            Console.WriteLine(PropertiesCollection.driver.Url);
+            register.FillRegisterForm(firstName, lastName, email, password, password);
+            var dashboard = register.ClickRegisterButton();
+            Assert.That(dashboard.FindIsHome, Is.True);
 
 
-            // Check if user is part of group. if so remove user.  
-            Console.WriteLine("Check if user is part of group, if so remove from group");
-            if (editGroup.IsgroupMember(_username))
-                editGroup = editGroup.RemoveUser(_username);
-            // Add users to group
-            Console.WriteLine("Test to add two users " + newUsers);
-            editGroup = editGroup.AddUsers(newUsers);
-
-            // Assert change has happened
-            Console.WriteLine("Test that Change has happened");
-            Assert.That(editGroup.VerífyChage(), Is.True);
-
-            // Test that Users is added.
-            Console.WriteLine("Check that new users are added");
-            Assert.That(editGroup.IsgroupMember(_username), Is.True);
-            Assert.That(editGroup.IsgroupMember(admin), Is.True);
-
-            // remove user admin@admin.com
-            Console.WriteLine("Remove "+ admin);
-            editGroup = editGroup.RemoveUser(admin);
-
-            // Verify that that admin is removed.
-            Console.WriteLine("Test That admin@admin is removed");
-            Assert.That(editGroup.IsgroupMember(admin), Is.False);
-
-            Console.WriteLine("Back to index");
-            manageGroups = editGroup.BottomGoBack();
-
-            // Go to dashboard by Home button
-            Console.WriteLine("Go To Dashboard");
-            dashboard = manageGroups.TestHomeButton(); // Not working/unstable problem clicking element.
-
-            // verify that user is part of group. 
-            Console.WriteLine("Verify that user is part of group on dashboard");
-            Assert.That(dashboard.IsGroupMember(grpname));
-
-
-            Console.WriteLine("Groups Test Done.");
         }
 
-        [Test]
+        [Test, Order(5)]
         public void FindUserAndMakeRevokeAdmineRoleTests()
         {
             Console.WriteLine("Running UserTests");
             // Login and prepare for test. 
-            var dashboard = LogInPreTest();
+            var dashboard = LogInPreTest(_admin,_adminPassword);
 
             // Get to Manage Users
             Console.WriteLine("Goto ManageUser page");
@@ -267,7 +227,7 @@ namespace OrcaQuizUITest
              * Go to ViewUser page of self
              */
             Console.WriteLine("Find username and go to username page");
-            ViewUserPageObject viewUser = manageUsers.GetUserPage(_username);
+            ViewUserPageObject viewUser = manageUsers.GetUserPage(_admin);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             /* Check if current user is same as loged in:
@@ -287,8 +247,8 @@ namespace OrcaQuizUITest
              * if admin change to not admin and then change back 
              * else change to admin then revoke
              */
-            Console.WriteLine("Go to admin@admin page");
-            viewUser = manageUsers.GetUserPage("admin@admin.com");
+            Console.WriteLine("Go to uitest@admin page");
+            viewUser = manageUsers.GetUserPage(_username);
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             Console.WriteLine("Check for admin status");
@@ -309,6 +269,9 @@ namespace OrcaQuizUITest
                 Assert.That(viewUser.CheckIsAdmin(), Is.True);
                 viewUser.ChangeStatus();
                 Assert.That(viewUser.CheckIsAdmin(), Is.False);
+                Console.WriteLine("Make sure is admin");
+                viewUser.ChangeStatus();
+                Assert.That(viewUser.CheckIsAdmin(), Is.True);
             }
 
             // Return back to ManageUser Page
@@ -318,13 +281,84 @@ namespace OrcaQuizUITest
 
         }
 
-        [Test]
+        [Test, Order(6)]
+        public void CreateGroupWithAddAndRemoveMembersTest()
+        {
+            Console.WriteLine("Running GroupsTest");
+            // Login and prepare for test. 
+            var dashboard = LogInPreTest(_username, _password);
+            // Set up Valus for test
+            string grpname = "Uitestgrupp";
+
+            string newUsers = _username + ", " + _admin;
+
+
+            // Get to ManageGroups
+            Console.WriteLine("Go to Manage group page from Dashboard");
+            ManageGroupsPageObject manageGroups = (ManageGroupsPageObject)dashboard.DDLmenue(AdminChoiseType.ManageGroup);
+            Console.WriteLine(PropertiesCollection.driver.Url);
+
+            //// Verify there are groups
+            //Console.WriteLine("verify that there are groups");
+            //Assert.That(manageGroups.ThereAreGroups(), Is.False);
+            var creategroup = manageGroups.ClickCreateGroup();
+
+            creategroup = creategroup.FillCreateGroupForm(grpname, newUsers);
+
+            var editGroup = creategroup.SaveNewGroup();
+
+            // Edit Group With pre deifined groupname
+            //Console.WriteLine("Press edit on " + grpname + " edit button");
+            //var editGroup = manageGroups.EditGroup(grpname);
+            //Console.WriteLine(PropertiesCollection.driver.Url);
+
+
+            // Check if user is part of group. if so remove user.  
+            Console.WriteLine("Check if user is part of group, if so remove from group");
+            if (editGroup.IsgroupMember(_username))
+                editGroup = editGroup.RemoveUser(_username);
+            // Add users to group
+            Console.WriteLine("Test to add two users " + newUsers);
+            editGroup = editGroup.AddUsers(newUsers);
+
+            // Assert change has happened
+            Console.WriteLine("Test that Change has happened");
+            Assert.That(editGroup.VerífyChage(), Is.True);
+
+            // Test that Users is added.
+            Console.WriteLine("Check that new users are added");
+            Assert.That(editGroup.IsgroupMember(_username), Is.True);
+            Assert.That(editGroup.IsgroupMember(_admin), Is.True);
+
+            // remove user admin@admin.com
+            Console.WriteLine("Remove " + _admin);
+            editGroup = editGroup.RemoveUser(_admin);
+
+            // Verify that that admin is removed.
+            Console.WriteLine("Test That admin@admin is removed");
+            Assert.That(editGroup.IsgroupMember(_admin), Is.False);
+
+            Console.WriteLine("Back to index");
+            manageGroups = editGroup.BottomGoBack();
+
+            // Go to dashboard by Home button
+            Console.WriteLine("Go To Dashboard");
+            dashboard = manageGroups.TestHomeButton(); // Not working/unstable problem clicking element.
+
+            // verify that user is part of group. 
+            Console.WriteLine("Verify that user is part of group on dashboard");
+            Assert.That(dashboard.IsGroupMember(grpname));
+
+            Console.WriteLine("Groups Test Done.");
+        }
+
+        [Test, Order(7)]
         public void MakeAQuizTest()
         {
             Console.WriteLine("Start Creating a Quiz");
 
             Console.WriteLine("Login");
-           var dashboard=  LogInPreTest();
+           var dashboard=  LogInPreTest(_username, _password);
 
             _UiTestQuizName = "UiTest_" + DateTime.UtcNow;
 
@@ -392,13 +426,13 @@ namespace OrcaQuizUITest
 
         }
 
-        [Test]
+        [Test, Order(8)]
         public void TakeAQuizTest()
         {
             Console.WriteLine("Start TakeAQuizTest");
            string[] _correctAnswers = new string[] { "True", "Tis", "Whut" };
         Console.WriteLine("Login");
-            var dashboard = LogInPreTest();
+            var dashboard = LogInPreTest(_username, _password);
 
             Console.WriteLine("Assert that test exist.");
             Assert.That(dashboard.FindQuiz("UiTest_"), Is.True);
@@ -432,32 +466,8 @@ namespace OrcaQuizUITest
             Console.WriteLine("TackeAQuizTest Completed");
         }
 
-
-        public void CreateUserTest()
-        {
-            Console.WriteLine("Running CreateUserTest Test!");
-
-            string firstName = "UItestFirstName";
-            string lastName = "UItestLastName";
-            string email = "ui@test.orca";
-            string password = "P@ssw0rd";
-            
-
-            // go to start page
-            StartPageObject start = new StartPageObject();
-            
-            Console.WriteLine("From Startpage test register button center screen");
-            var register = start.TestRegisterCenterBtn();
-
-            register.FillRegisterForm(firstName,lastName,email, password, password);
-            var dashboard = register.ClickRegisterButton();
-            Assert.That(dashboard.FindIsHome, Is.True);
-
-
-        }
-
-     
-        private DashboardPageObject LogInPreTest()
+             
+        private DashboardPageObject LogInPreTest(string usr, string pswd)
         {
             Console.WriteLine("Running Login Sequence");
 
@@ -467,7 +477,7 @@ namespace OrcaQuizUITest
             Console.WriteLine(PropertiesCollection.driver.Url);
 
             SignInPageObject pageLogin = new SignInPageObject();
-            var dashboard = pageLogin.Signin(_username, _password);
+            var dashboard = pageLogin.Signin(usr, pswd);
             Assert.That(dashboard.FindIsHome);
             Console.WriteLine(PropertiesCollection.driver.Url);
             Console.WriteLine("Login Sequence finished");

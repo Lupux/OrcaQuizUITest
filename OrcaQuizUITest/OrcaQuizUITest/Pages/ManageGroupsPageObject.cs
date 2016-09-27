@@ -1,7 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
-
+using OrcaQuizUITest.Tests;
 
 namespace OrcaQuizUITest.Pages
 {
@@ -12,11 +12,11 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
 
-        [FindsBy(How = How.Id, Using = "UI_test_btn_CreateGroup")]
-        public IWebElement BtnCreateGroup { get; set; }
+        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_CreateGroup']")]
+        private IWebElement BtnCreateGroup { get; set; }
 
         [FindsBy(How = How.Id, Using = "UI_test_txt_noGroups")]
-        public IWebElement TxtAreGroups { get; set; }
+        private IWebElement TxtAreGroups { get; set; }
 
        
         internal bool ThereAreGroups()
@@ -34,7 +34,7 @@ namespace OrcaQuizUITest.Pages
 
         internal EditGroupPageObject EditGroup(string grpName)
         {
-            PropertiesCollection.driver.FindElement(By.Id("btn_Edit_"+grpName)).Click();
+            PropertiesCollection.driver.FindElement(By.CssSelector("button[class*= 'Ui_test_btn_Edit_" + grpName+"']")).Click();
 
             return new EditGroupPageObject();
         }
@@ -59,6 +59,11 @@ namespace OrcaQuizUITest.Pages
 
                 return false;
             }
+        }
+        internal CreateGroupPageObject ClickCreateGroup()
+        {
+            BtnCreateGroup.Clicks();
+            return new CreateGroupPageObject();
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OrcaQuizUITest.Tests
 {
-    public static class GetMethodes
+    public static class GetMethods
     {
 
 
