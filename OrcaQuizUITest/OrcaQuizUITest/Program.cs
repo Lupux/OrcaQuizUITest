@@ -433,6 +433,29 @@ namespace OrcaQuizUITest
         }
 
 
+        public void CreateUserTest()
+        {
+            Console.WriteLine("Running CreateUserTest Test!");
+
+            string firstName = "UItestFirstName";
+            string lastName = "UItestLastName";
+            string email = "ui@test.orca";
+            string password = "P@ssw0rd";
+            
+
+            // go to start page
+            StartPageObject start = new StartPageObject();
+            
+            Console.WriteLine("From Startpage test register button center screen");
+            var register = start.TestRegisterCenterBtn();
+
+            register.FillRegisterForm(firstName,lastName,email, password, password);
+            var dashboard = register.ClickRegisterButton();
+            Assert.That(dashboard.FindIsHome, Is.True);
+
+
+        }
+
      
         private DashboardPageObject LogInPreTest()
         {

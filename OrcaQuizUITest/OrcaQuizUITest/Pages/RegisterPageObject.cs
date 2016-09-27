@@ -4,7 +4,7 @@ using OrcaQuizUITest.Tests;
 
 namespace OrcaQuizUITest.Pages
 {
-    public class RegisterPageObject 
+    public class RegisterPageObject
     {
         public RegisterPageObject()
         {
@@ -76,6 +76,22 @@ namespace OrcaQuizUITest.Pages
             return new SignInPageObject();
         }
 
+        internal RegisterPageObject FillRegisterForm(string firstname, string lastname, string email, string password, string repeatpassword)
+        {
+            TxtFirstName.EnterText(firstname);
+            TxtLastName.EnterText(lastname);
+            TxtEmail.EnterText(email);
+            TxtPassword.EnterText(password);
+            TxtPasswordCheck.EnterText(repeatpassword);
+
+            return this;
+        }
+
+        internal DashboardPageObject ClickRegisterButton()
+        {
+            RegisterBtn.Clicks();
+            return new DashboardPageObject();
+        }
 
     }
 }
