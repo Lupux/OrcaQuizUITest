@@ -92,9 +92,12 @@
     <Compile Include="Pages\ManageQuestionsPageObject.cs" />
     <Compile Include="Pages\ManageUserPageObject.cs" />
     <Compile Include="Pages\PageObject.cs" />
+    <Compile Include="Pages\QuizQuestionPageObject.cs" />
     <Compile Include="Pages\RegisterPageObject.cs" />
     <Compile Include="Pages\SignInPageObject.cs" />
     <Compile Include="Pages\StartPageObject.cs" />
+    <Compile Include="Pages\TestSessionFinishedPageObject.cs" />
+    <Compile Include="Pages\TestSessionPageObject.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="PropertiesCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,7 +1,1 @@
-<Playlist Version="1.0">
-<Add Test="OrcaQuizUITest.Program.AccessTests" />
-<Add Test="OrcaQuizUITest.Program.TestLinksForNotSignedIn" />
-<Add Test="OrcaQuizUITest.Program.LoginTest" />
-<Add Test="OrcaQuizUITest.Program.UserTests" />
-<Add Test="OrcaQuizUITest.Program.GroupsTest" />
-</Playlist>
+<Playlist Version="1.0"><Add Test="OrcaQuizUITest.Program.AccessTests" /><Add Test="OrcaQuizUITest.Program.TestLinksForNotSignedIn" /><Add Test="OrcaQuizUITest.Program.LoginTest" /><Add Test="OrcaQuizUITest.Program.UserTests" /><Add Test="OrcaQuizUITest.Program.GroupsTest" /><Add Test="OrcaQuizUITest.Program.MakeAQuizTest" /></Playlist>

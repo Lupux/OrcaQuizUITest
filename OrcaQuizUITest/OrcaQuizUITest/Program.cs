@@ -392,6 +392,46 @@ namespace OrcaQuizUITest
 
         }
 
+        [Test]
+        public void TakeAQuizTest()
+        {
+            Console.WriteLine("Start TakeAQuizTest");
+           string[] _correctAnswers = new string[] { "True", "Tis", "Whut" };
+        Console.WriteLine("Login");
+            var dashboard = LogInPreTest();
+
+            Console.WriteLine("Assert that test exist.");
+            Assert.That(dashboard.FindQuiz("UiTest_"), Is.True);
+
+            Console.WriteLine("Take Test as admin");
+            var session = dashboard.TakeTestAsAdmin("UiTest_");
+
+            Console.WriteLine("Start Quiz!");
+            var test = session.StartTest();
+
+            Console.WriteLine("First Question expect answer True");
+
+            test = test.AnsweQuizQuestion(_correctAnswers[0]);
+            Console.WriteLine("Click Next");
+            test = test.ClickNext();
+
+            Console.WriteLine("Next Question");
+            Console.WriteLine("First answer second question");
+            test = test.AnsweQuizQuestion(_correctAnswers[1]);
+            Console.WriteLine("Second answer second question");
+            test = test.AnsweQuizQuestion(_correctAnswers[2]);
+
+            Console.WriteLine("Click Submit");
+            var completed = test.ClickSubmit();
+
+            Console.WriteLine("Asserting success");
+            Assert.That(completed.TestSuccsess, Is.True);
+            Console.WriteLine("Return to Dashboard");
+            dashboard = completed.ClickHomeBtn();
+
+            Console.WriteLine("TackeAQuizTest Completed");
+        }
+
 
      
         private DashboardPageObject LogInPreTest()

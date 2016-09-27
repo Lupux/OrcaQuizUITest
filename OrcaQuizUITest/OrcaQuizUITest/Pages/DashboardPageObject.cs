@@ -71,5 +71,13 @@ namespace OrcaQuizUITest.Pages
             }
         }
 
+        internal TestSessionPageObject TakeTestAsAdmin(string quizName)
+        {
+
+            PropertiesCollection.driver.FindElement(By.CssSelector("[class*= 'UI_test_btn_takeTestAsAdmin_" + quizName + "']")).Clicks();
+
+            return new TestSessionPageObject();
+        }
+
     }
 }
