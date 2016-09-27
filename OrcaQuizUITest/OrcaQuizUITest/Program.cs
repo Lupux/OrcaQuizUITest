@@ -41,7 +41,7 @@ namespace OrcaQuizUITest
         }
 
         [Test]
-        public void AccessTests()
+        public void AccessDeniedTests()
         {
             Console.WriteLine("Running access test ");
             /* Arrange */
@@ -135,7 +135,7 @@ namespace OrcaQuizUITest
         }
 
         [Test]
-        public void LoginTest()
+        public void LoginTests()
         {
             Console.WriteLine("Running LoginTest Test!");
             string LoginUrl = "http://localhost:27015/Account/Login";
@@ -181,7 +181,7 @@ namespace OrcaQuizUITest
         }
 
         [Test]
-        public void GroupsTest()
+        public void EditGroupWithAddAndRemoveMembersTest()
         {
             Console.WriteLine("Running GroupsTest");
             // Login and prepare for test. 
@@ -248,7 +248,7 @@ namespace OrcaQuizUITest
         }
 
         [Test]
-        public void UserTests()
+        public void FindUserAndMakeRevokeAdmineRoleTests()
         {
             Console.WriteLine("Running UserTests");
             // Login and prepare for test. 
