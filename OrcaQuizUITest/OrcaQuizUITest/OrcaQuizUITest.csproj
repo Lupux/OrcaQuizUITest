@@ -94,6 +94,7 @@
     <Compile Include="Pages\ManageQuestionsPageObject.cs" />
     <Compile Include="Pages\ManageUserPageObject.cs" />
     <Compile Include="Pages\PageObject.cs" />
+    <Compile Include="Pages\PublishTestPageObject.cs" />
     <Compile Include="Pages\QuizQuestionPageObject.cs" />
     <Compile Include="Pages\RegisterPageObject.cs" />
     <Compile Include="Pages\SignInPageObject.cs" />

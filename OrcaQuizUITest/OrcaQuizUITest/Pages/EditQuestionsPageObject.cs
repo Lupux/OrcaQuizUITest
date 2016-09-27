@@ -23,7 +23,7 @@ namespace OrcaQuizUITest.Pages
         private IWebElement TxtSortOrder { get; set; }
 
         [FindsBy(How = How.Id, Using = "editQuestionTextDiv")]
-        private IWebElement TxtQuestionText{ get; set; }
+        private IWebElement TxtQuestionText { get; set; }
 
         [FindsBy(How = How.Id, Using = "HasComment")]
         private IWebElement CheckBoxHasComment { get; set; }
@@ -48,7 +48,7 @@ namespace OrcaQuizUITest.Pages
         #region Answers
 
         [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_AddAnswer']")]
-        private IWebElement BtnAddAnswer{ get; set; }
+        private IWebElement BtnAddAnswer { get; set; }
 
         [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_SaveAndExit']")]
         private IWebElement BtnSaveAndExit { get; set; }
@@ -67,9 +67,9 @@ namespace OrcaQuizUITest.Pages
         internal EditQuestionsPageObject WriteQuestion(QuestionType type, string questionText)
         {
             if (type == QuestionType.SingleChoice)
-                DDLQuestionType.SelectDropDown("Single Choice");
+                DDLQuestionType.SelectDropDown("Single choice (one correct answer)");
             if (type == QuestionType.MultipleChoice)
-                DDLQuestionType.SelectDropDown("Multiple Choice");
+                DDLQuestionType.SelectDropDown("Multiple choice (one or more correct answers)");
             // put text in iframeobject
             PropertiesCollection.driver.SwitchTo().Frame("mceQuestionBox_ifr").FindElement(By.Id("tinymce")).EnterText(questionText);
             // Return to Current default usage
@@ -92,7 +92,7 @@ namespace OrcaQuizUITest.Pages
 
         internal EditQuestionsPageObject SaveQuestion()
         {
-           
+
             new Actions(PropertiesCollection.driver).MoveToElement(BtnSaveQuestion).Release(BtnSaveQuestion).Build().Perform();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(20));
             wait.Until<IWebElement>(ExpectedConditions.ElementToBeClickable(BtnSaveQuestion)).Clicks();
@@ -113,25 +113,25 @@ namespace OrcaQuizUITest.Pages
 
         internal EditQuestionsPageObject AddAnswerTxtAndSave(string answerTxt, bool isCorrect)
         {
-            
+
 
             // Get answerId from URL
             string url = PropertiesCollection.driver.Url;
             var urlList = url.Split('/');
-            string answerId = urlList[urlList.Length -1];
+            string answerId = urlList[urlList.Length - 1];
 
             // Enter Answer
             Sleeping(); // use a threadsleep because of page scrolling and test is unstable because of that. Would like to use a explicit or implicit wait but can't get it to work.
             // put text in iframeobject
-            PropertiesCollection.driver.SwitchTo().Frame("mceAnswerBox"+ answerId+ "_ifr").FindElement(By.Id("tinymce")).EnterText(answerTxt);
+            PropertiesCollection.driver.SwitchTo().Frame("mceAnswerBox" + answerId + "_ifr").FindElement(By.Id("tinymce")).EnterText(answerTxt);
             // Return to Current default usage
             PropertiesCollection.driver.SwitchTo().DefaultContent();
-            
+
             if (isCorrect)
                 PropertiesCollection.driver.FindElement(By.Id("answerIsCorrect" + answerId)).Clicks();
 
             // Save Answer
-                      var element = PropertiesCollection.driver.FindElement(By.Id("btnEditAnswer" + answerId));
+            var element = PropertiesCollection.driver.FindElement(By.Id("btnEditAnswer" + answerId));
             new Actions(PropertiesCollection.driver).MoveToElement(element).Release(element).Build().Perform();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(20));
             wait.Until<IWebElement>(ExpectedConditions.ElementToBeClickable(element)).Clicks();

@@ -17,6 +17,9 @@ namespace OrcaQuizUITest.Tests
         private static string _password = "P@ssw0rd";
         private static string _admin = "admin@admin.com";
         private static string _adminPassword = "@Dmin123";
+        private static string _grpname = "Uitestgrupp";
+        private static string _firstName = "UItestAdmin";
+        private static string _lastName = "UItest";
 
         private string _UiTestQuizName;
 
@@ -185,8 +188,8 @@ namespace OrcaQuizUITest.Tests
         {
             Console.WriteLine("Running CreateUserTest Test!");
 
-            string firstName = "UItestAdmin";
-            string lastName = "UItest";
+            string _firstName = "UItestAdmin";
+            string _lastName = "UItest";
             string email = _username;
             string password = _password;
 
@@ -197,7 +200,7 @@ namespace OrcaQuizUITest.Tests
             Console.WriteLine("From Startpage test register button center screen");
             var register = start.TestRegisterCenterBtn();
 
-            register.FillRegisterForm(firstName, lastName, email, password, password);
+            register.FillRegisterForm(_firstName, _lastName, email, password, password);
             var dashboard = register.ClickRegisterButton();
             Assert.That(dashboard.FindIsHome, Is.True);
 
@@ -284,8 +287,7 @@ namespace OrcaQuizUITest.Tests
             Console.WriteLine("Running GroupsTest");
             // Login and prepare for test. 
             var dashboard = LogInPreTest(_username, _password);
-            // Set up Valus for test
-            string grpname = "Uitestgrupp";
+
 
             string newUsers = _username + ", " + _admin;
 
@@ -300,7 +302,7 @@ namespace OrcaQuizUITest.Tests
             //Assert.That(manageGroups.ThereAreGroups(), Is.False);
             var creategroup = manageGroups.ClickCreateGroup();
 
-            creategroup = creategroup.FillCreateGroupForm(grpname, newUsers);
+            creategroup = creategroup.FillCreateGroupForm(_grpname, newUsers);
 
             var editGroup = creategroup.SaveNewGroup();
 
@@ -344,7 +346,7 @@ namespace OrcaQuizUITest.Tests
 
             // verify that user is part of group. 
             Console.WriteLine("Verify that user is part of group on dashboard");
-            Assert.That(dashboard.IsGroupMember(grpname));
+            Assert.That(dashboard.IsGroupMember(_grpname));
 
             Console.WriteLine("Groups Test Done.");
         }
@@ -461,6 +463,43 @@ namespace OrcaQuizUITest.Tests
             dashboard = completed.ClickHomeBtn();
 
             Console.WriteLine("TakeAQuizTest Completed");
+        }
+
+        [Test, Order(9)]
+        public void PublishQuizToGroupAndUserAndRemoveFromUser()
+        {
+            Console.WriteLine("Login");
+            var dashboard = LogInPreTest(_username, _password);
+
+            Console.WriteLine("Assert that test exist.");
+            Assert.That(dashboard.FindQuiz("UiTest_"), Is.True);
+
+            Console.WriteLine("Publish Quiz");
+            var publish = dashboard.PublishTest("UiTest_");
+
+            Console.WriteLine("Pubish to group");
+            publish.PublishToGroup(_grpname);
+
+            Console.WriteLine("Publish to user");
+            publish.PublishToUser(_firstName);
+
+            Console.WriteLine("Assert that is published to user");
+            Assert.That(publish.isPublishedToUser(_firstName), Is.True);
+
+            Console.WriteLine("UnPublish to user");
+            publish.UnPublishToUser(_firstName);
+
+            Console.WriteLine("Assert that quiz is unpublished to user");
+            Assert.That(publish.isPublishedToUser(_firstName), Is.False);
+
+            Console.WriteLine("Return To home");
+            dashboard = publish.ReturnBack();
+
+            Console.WriteLine("Assert that quiz is published");
+            Assert.That(dashboard.isPublished("UiTest_"));
+
+            Console.WriteLine("Publish Test is done");  
+
         }
 
 

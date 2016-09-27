@@ -79,5 +79,26 @@ namespace OrcaQuizUITest.Pages
             return new TestSessionPageObject();
         }
 
+        internal PublishTestPageObject PublishTest(string quizName)
+        {
+            PropertiesCollection.driver.FindElement(By.CssSelector("[class*= 'UI_test_btn_publish_" + quizName + "']")).Clicks();
+
+            return new PublishTestPageObject();
+        }
+
+        internal bool isPublished(string quizName)
+        {
+            
+            try
+            {
+                return PropertiesCollection.driver.FindElement(By.CssSelector("[class*= 'UI_test_txt_IsPublished_" + quizName + "']")).Displayed;
+
+            }
+            catch (NoSuchElementException)
+            {
+
+                return false;
+            }
+        }
     }
 }

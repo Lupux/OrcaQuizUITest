@@ -28,7 +28,7 @@ namespace OrcaQuizUITest.Tests
 
         
 
-        internal static void ClearDb1() //string queryString
+        internal static void ClearDb() //string queryString
         {
             using (SqlConnection connection = new SqlConnection(
                        _connectionString))
@@ -36,30 +36,18 @@ namespace OrcaQuizUITest.Tests
                 SqlCommand command = new SqlCommand(_clearDBsScript1, connection);
                 command.Connection.Open();
                 command.ExecuteNonQuery();
-  
-            }
-        }
-        internal static void ClearDb2() //string queryString
-        {
-            using (SqlConnection connection = new SqlConnection(
-                       _connectionString))
-            {
-                SqlCommand command = new SqlCommand(_clearDBsScript2, connection);
-                command.Connection.Open();
-                command.ExecuteNonQuery();
+
+                SqlCommand command2 = new SqlCommand(_clearDBsScript2, connection);
+              
+                command2.ExecuteNonQuery();
+
+                SqlCommand command3 = new SqlCommand(_clearDBsScript3, connection);
+                
+                command3.ExecuteNonQuery();
+
 
             }
         }
-        internal static void ClearDb3() //string queryString
-        {
-            using (SqlConnection connection = new SqlConnection(
-                       _connectionString))
-            {
-                SqlCommand command = new SqlCommand(_clearDBsScript3, connection);
-                command.Connection.Open();
-                command.ExecuteNonQuery();
-
-            }
-        }
+     
     }
 }
