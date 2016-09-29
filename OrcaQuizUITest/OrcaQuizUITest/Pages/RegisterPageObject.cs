@@ -27,29 +27,31 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.Id, Using = "PasswordCheck")]
         private IWebElement TxtPasswordCheck { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Register']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnRegister']")]
         private IWebElement RegisterBtn { get; set; }
         #endregion
 
-        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Login")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='linkLogin']")]
         private IWebElement LoginLink { get; set; }
 
+      
         #region Generic Signin/register buttons
         //Generic Many pages buttons
         // Top Right corner buttons/links
-        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Register")]
-        private IWebElement TR_RegisterBtn { get; set; }
+        [FindsBy(How = How.CssSelector, Using = "[uitest='linkNavBarRegister']")]
+        public IWebElement TR_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.ClassName, Using = "UI_test_Link_Signin")]
-        private IWebElement TR_SignInBtn { get; set; }
+        [FindsBy(How = How.CssSelector, Using = "[uitest='linkNavBarSignin']")]
+        public IWebElement TR_SignInBtn { get; set; }
         #endregion
 
         #region Generic all Pages Buttons
         // Generic All pages Button
         // Top Left corner Button
-        [FindsBy(How = How.ClassName, Using = "navbar-brand")]
-        private IWebElement TL_HomeBtn { get; set; }
+        [FindsBy(How = How.CssSelector, Using = "[uitest='navBrand']")]
+        public IWebElement TL_HomeBtn { get; set; }
         #endregion
+
         internal StartPageObject TestHomeButton()
         {
             TL_HomeBtn.Clicks();

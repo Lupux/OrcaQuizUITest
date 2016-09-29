@@ -17,10 +17,10 @@ namespace OrcaQuizUITest.Pages
         }
 
         // Big Screen Center Buttons
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Register']")]
+        [FindsBy(How = How.CssSelector, Using = "[ uitest='btnRegister']")]
         public IWebElement C_RegisterBtn { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Login']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnLogin']")]
         public IWebElement C_SignInBtn { get; set; }
         
         

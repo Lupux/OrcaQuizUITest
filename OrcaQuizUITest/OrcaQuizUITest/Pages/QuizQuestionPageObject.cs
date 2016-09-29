@@ -16,13 +16,13 @@ namespace OrcaQuizUITest.Pages
 
         
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_previus']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnPreviusQuestion']")]
         private IWebElement BtnPrevius { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_next']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnNextQuestion']")]
         private IWebElement BtnNext { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_submit']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnSubmitQuiz']")]
         private IWebElement BtnSubmit { get; set; }
 
 

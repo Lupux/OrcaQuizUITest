@@ -12,10 +12,10 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_CreateGroup']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnCreateGroup']")]
         private IWebElement BtnCreateGroup { get; set; }
 
-        [FindsBy(How = How.Id, Using = "UI_test_txt_noGroups")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='txtnoGroups']")]
         private IWebElement TxtAreGroups { get; set; }
 
        
@@ -34,25 +34,25 @@ namespace OrcaQuizUITest.Pages
 
         internal EditGroupPageObject EditGroup(string grpName)
         {
-            PropertiesCollection.driver.FindElement(By.CssSelector("button[class*= 'Ui_test_btn_Edit_" + grpName+"']")).Click();
+            PropertiesCollection.driver.FindElement(By.CssSelector("[uitest*='btnEdit_" + grpName+"']")).Click();
 
             return new EditGroupPageObject();
         }
 
         internal void DeactivateGroup(string grpName)
         {
-            PropertiesCollection.driver.FindElement(By.Id("btn_Deactivate_" + grpName)).Click();
+            PropertiesCollection.driver.FindElement(By.CssSelector("[uites*t='btnDeactivate_" + grpName + "']")).Click();
         }
         internal void ActivateGroup(string grpName)
         {
-            PropertiesCollection.driver.FindElement(By.Id("btn_Activate_" + grpName)).Click();
+            PropertiesCollection.driver.FindElement(By.CssSelector("[uites*t='btnActivate_" + grpName + "']")).Click();
         }
 
         internal bool IsDeactivated(string grpName)
         {
             try
             {
-                return PropertiesCollection.driver.FindElement(By.Id("Txt_IsDeactivated_" + grpName)).Displayed;
+                return PropertiesCollection.driver.FindElement(By.CssSelector("[uitest*='txtIsDeactivated_" + grpName + "']")).Displayed;
             }
             catch (Exception)
             {

@@ -15,23 +15,23 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Back_top']")]
         private IWebElement BtnBack { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "p[class*= 'UI_test_txt_ISPublished']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='txtISPublished']")]
         public IWebElement TxtIsPublished { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_AddQuestion']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnAddQuestion']")]
         private IWebElement BtnAddQuestion { get; set; }
         
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_importQuestion']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnImportQuestion']")]
         private IWebElement BtnImportQuestion { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_backToHome']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnBackToHome']")]
         private IWebElement BtnBackHome { get; set; }
 
         
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_manageQuizSettings']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnManageQuizSettings']")]
         private IWebElement BtnManageQuizSettings { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_publishTest']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnPublishTest']")]
         private IWebElement BtnPublish { get; set; }
 
 

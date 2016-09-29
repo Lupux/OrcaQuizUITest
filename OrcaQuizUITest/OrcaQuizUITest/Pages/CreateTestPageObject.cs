@@ -13,10 +13,10 @@ namespace OrcaQuizUITest.Pages
 
         }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Back_top']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnBackTop']")] 
         private IWebElement BtnBack { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Save_top']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnSaveTop']")]
         private IWebElement BtnSaveTop { get; set; }
 
         [FindsBy(How = How.Id, Using = "TestName")]
@@ -44,7 +44,7 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.Id, Using = "CustomCompletionMessage")]
         private IWebElement TxtCustomCompletionMessage { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_Btn_Back']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnBackbottom']")]
         private IWebElement BtnBackBottom { get; set; }
 
         [FindsBy(How = How.Id, Using = "saveButton")]

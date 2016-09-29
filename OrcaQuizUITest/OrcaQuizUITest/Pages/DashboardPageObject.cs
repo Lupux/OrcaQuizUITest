@@ -15,10 +15,10 @@ namespace OrcaQuizUITest.Pages
             PageFactory.InitElements(PropertiesCollection.driver, this);
         }
 
-        [FindsBy(How = How.ClassName, Using = "UI_test_txt_isHome")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='txtIsHome']")]
         public IWebElement TxtIsHome { get; set; }
 
-        [FindsBy(How = How.ClassName, Using = "UI_Test_Btn_CreateTest")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnCreateTest']")]
         public IWebElement BtnCreateTest { get; set; }
 
 
@@ -42,7 +42,7 @@ namespace OrcaQuizUITest.Pages
         {
             try
             {
-                return PropertiesCollection.driver.FindElement(By.CssSelector("[class*= 'UI_test_txt_groupMembership_"+grpName+"']")).Displayed;
+                return PropertiesCollection.driver.FindElement(By.CssSelector("[uitest='txtGroupMembership_"+grpName+"']")).Displayed;
             }
             catch (NoSuchElementException)
             {
@@ -61,7 +61,7 @@ namespace OrcaQuizUITest.Pages
         {
             try
             {
-           return PropertiesCollection.driver.FindElement(By.CssSelector("[class*= '"+quizName + "']")).Displayed;
+           return PropertiesCollection.driver.FindElement(By.CssSelector("p[uitest*='txtquiz_"+quizName +"']")).Displayed;
 
             }
             catch (NoSuchElementException)
@@ -74,14 +74,14 @@ namespace OrcaQuizUITest.Pages
         internal TestSessionPageObject TakeTestAsAdmin(string quizName)
         {
 
-            PropertiesCollection.driver.FindElement(By.CssSelector("[class*= 'UI_test_btn_takeTestAsAdmin_" + quizName + "']")).Clicks();
+            PropertiesCollection.driver.FindElement(By.CssSelector("[uitest*='btnTakeTestAsAdmin_" + quizName + "']")).Clicks();
 
             return new TestSessionPageObject();
         }
 
         internal PublishTestPageObject PublishTest(string quizName)
         {
-            PropertiesCollection.driver.FindElement(By.CssSelector("[class*= 'UI_test_btn_publish_" + quizName + "']")).Clicks();
+            PropertiesCollection.driver.FindElement(By.CssSelector("[uitest='btnPublish_" + quizName + "']")).Clicks();
 
             return new PublishTestPageObject();
         }
@@ -91,7 +91,7 @@ namespace OrcaQuizUITest.Pages
             
             try
             {
-                return PropertiesCollection.driver.FindElement(By.CssSelector("[class*= 'UI_test_txt_IsPublished_" + quizName + "']")).Displayed;
+                return PropertiesCollection.driver.FindElement(By.CssSelector("[uitest='txtIsPublished_" + quizName + "']")).Displayed;
 
             }
             catch (NoSuchElementException)

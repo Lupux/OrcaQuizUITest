@@ -28,11 +28,11 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.Id, Using = "HasComment")]
         private IWebElement CheckBoxHasComment { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_saveQ']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnSaveQ']")]
         private IWebElement BtnSaveQuestion { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_backToHome']")]
-        private IWebElement BtnBackHome { get; set; }
+        //[FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_backToHome']")]
+        //private IWebElement BtnBackHome { get; set; }
         #endregion
         #region Modal
         [FindsBy(How = How.CssSelector, Using = "button[class*= 'close']")]
@@ -47,13 +47,13 @@ namespace OrcaQuizUITest.Pages
 
         #region Answers
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_AddAnswer']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnAddAnswer']")]
         private IWebElement BtnAddAnswer { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_SaveAndExit']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnSaveAndExit']")]
         private IWebElement BtnSaveAndExit { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_NewQuestion']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnNewQuestion']")]
         private IWebElement BtnNewQuestion { get; set; }
 
         #endregion
