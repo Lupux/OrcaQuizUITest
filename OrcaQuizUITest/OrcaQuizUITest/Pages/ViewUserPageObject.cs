@@ -14,20 +14,20 @@ namespace OrcaQuizUITest.Pages
         }
 
 
-        [FindsBy(How = How.CssSelector, Using = "p[class*= 'UI_test_txt_viewBag']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='txtViewBag']")]
         public IWebElement TxtViewBag { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "p[class*= 'UI_test_txt_isAdmin']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='txtIsAdmin']")]
         public IWebElement TxtIsAdmin { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "p[class*= 'UI_test_txt_Self']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='txtSelf']")]
         public IWebElement TxtSelf { get; set; }
 
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_ChangeStatus']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnChangeStatus']")]
         public IWebElement BtnChangeStatus{ get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_test_btn_back")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnBack']")]
         public IWebElement BtnBack { get; set; }
 
         internal bool CheckSelf()
@@ -58,7 +58,7 @@ namespace OrcaQuizUITest.Pages
         {
             BtnChangeStatus.Clicks();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(10));
-            wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("p[class*= 'UI_test_txt_viewBag']")));
+            wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.CssSelector("[uitest='txtViewBag']")));
         }
     }
 }

@@ -17,6 +17,14 @@ namespace OrcaQuizUITest.Pages
 
         [FindsBy(How = How.CssSelector, Using = "[uitest='txtIsHome']")]
         public IWebElement TxtIsHome { get; set; }
+        
+        [FindsBy(How = How.CssSelector, Using = "[uitest='txtGroupPermission']")]
+        public IWebElement TxtGroupPermission { get; set; }
+
+        [FindsBy(How = How.CssSelector, Using = "[uitest='txtUserPermission']")]
+        public IWebElement TxtUserPermission { get; set; }
+
+
 
         [FindsBy(How = How.CssSelector, Using = "[uitest='btnCreateTest']")]
         public IWebElement BtnCreateTest { get; set; }
@@ -81,7 +89,7 @@ namespace OrcaQuizUITest.Pages
 
         internal PublishTestPageObject PublishTest(string quizName)
         {
-            PropertiesCollection.driver.FindElement(By.CssSelector("[uitest='btnPublish_" + quizName + "']")).Clicks();
+            PropertiesCollection.driver.FindElement(By.CssSelector("[uitest*='btnPublish_" + quizName + "']")).Clicks();
 
             return new PublishTestPageObject();
         }
@@ -91,7 +99,36 @@ namespace OrcaQuizUITest.Pages
             
             try
             {
-                return PropertiesCollection.driver.FindElement(By.CssSelector("[uitest='txtIsPublished_" + quizName + "']")).Displayed;
+                return PropertiesCollection.driver.FindElement(By.CssSelector("[uitest*='txtIsPublished_" + quizName + "']")).Displayed;
+
+            }
+            catch (NoSuchElementException)
+            {
+
+                return false;
+            }
+        }
+
+        internal bool HasGroupPermission()
+        {
+
+            try
+            {
+                return TxtGroupPermission.Displayed;
+
+            }
+            catch (NoSuchElementException)
+            {
+
+                return false;
+            }
+        }
+        internal bool HasUserPermission()
+        {
+
+            try
+            {
+                return TxtUserPermission.Displayed;
 
             }
             catch (NoSuchElementException)

@@ -58,12 +58,6 @@ namespace OrcaQuizUITest.Pages
 
         #endregion
 
-        private void Sleeping() //Todo: Find solution so can remove this abomination from my code
-        {
-            Thread.Sleep(2000); // 2 sec wait 
-        }
-
-
         internal EditQuestionsPageObject WriteQuestion(QuestionType type, string questionText)
         {
             if (type == QuestionType.SingleChoice)
@@ -101,8 +95,7 @@ namespace OrcaQuizUITest.Pages
 
         internal EditQuestionsPageObject OpenNewAnswer()
         {
-            Sleeping(); // use a threadsleep because of page scrolling and test is unstable because of that. Would like to use a explicit or implicit wait but can't get it to work.
-
+            PropertiesCollection.driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(2));
             new Actions(PropertiesCollection.driver).MoveToElement(BtnAddAnswer).Release(BtnAddAnswer).Build().Perform();
             WebDriverWait wait = new WebDriverWait(PropertiesCollection.driver, TimeSpan.FromSeconds(20));
             wait.Until<IWebElement>(ExpectedConditions.ElementToBeClickable(BtnAddAnswer)).Clicks();
@@ -121,7 +114,7 @@ namespace OrcaQuizUITest.Pages
             string answerId = urlList[urlList.Length - 1];
 
             // Enter Answer
-            Sleeping(); // use a threadsleep because of page scrolling and test is unstable because of that. Would like to use a explicit or implicit wait but can't get it to work.
+            PropertiesCollection.driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(2));
             // put text in iframeobject
             PropertiesCollection.driver.SwitchTo().Frame("mceAnswerBox" + answerId + "_ifr").FindElement(By.Id("tinymce")).EnterText(answerTxt);
             // Return to Current default usage

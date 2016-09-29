@@ -489,15 +489,18 @@ namespace OrcaQuizUITest.Tests
             Console.WriteLine("UnPublish to user");
             publish.UnPublishToUser(_firstName);
 
-            Console.WriteLine("Assert that quiz is unpublished to user");
-            Assert.That(publish.isPublishedToUser(_firstName), Is.False);
-
             Console.WriteLine("Return To home");
             dashboard = publish.ReturnBack();
 
             Console.WriteLine("Assert that quiz is published");
             Assert.That(dashboard.isPublished("UiTest_"));
 
+            Console.WriteLine("Assert that quiz is unpublished to user");
+            Assert.That(dashboard.HasUserPermission(), Is.False);
+
+            Console.WriteLine("Assert that quiz is published to group");
+            Assert.That(dashboard.HasGroupPermission(), Is.True);
+            
             Console.WriteLine("Publish Test is done");  
 
         }

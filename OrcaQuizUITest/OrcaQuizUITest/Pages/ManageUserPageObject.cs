@@ -15,7 +15,7 @@ namespace OrcaQuizUITest.Pages
         [FindsBy(How = How.Id, Using = "SearchTerm")]
         public IWebElement TxtSearch { get; set; }
 
-        [FindsBy(How = How.CssSelector, Using = "button[class*= 'UI_Test_Btn_Search']")]
+        [FindsBy(How = How.CssSelector, Using = "[uitest='btnSearch']")]
         public IWebElement BtnSearch { get; set; }
 
 

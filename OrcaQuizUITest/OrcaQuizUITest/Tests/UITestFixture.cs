@@ -11,7 +11,7 @@ namespace OrcaQuizUITest
         public void RunBeforAnyTest()
         {
             // here be code for emptying database...
-            SqlSupport.ClearDb();
+           // SqlSupport.ClearDb();
           
         }
 
