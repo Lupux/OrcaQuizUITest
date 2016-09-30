@@ -28,8 +28,14 @@ namespace OrcaQuizUITest.Tests
         {
             //Local version URL:
             string url = "http://localhost:27015/";
-
-            PropertiesCollection.driver = new ChromeDriver(@"C:\Projects\OrcaQuizUITest\OrcaQuizUITest\OrcaQuizUITest\");
+            
+            // Setup path to driver
+            var path = new Uri(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
+            // Remove "bin\Debug\" from path
+            path = path.Remove(path.Length - 9);
+            path = path + @"Drivers\";
+           
+            PropertiesCollection.driver = new ChromeDriver(path);
 
             // Navigate to startPage
             PropertiesCollection.driver.Navigate().GoToUrl(url);
@@ -188,8 +194,8 @@ namespace OrcaQuizUITest.Tests
         {
             Console.WriteLine("Running CreateUserTest Test!");
 
-            string _firstName = "UItestAdmin";
-            string _lastName = "UItest";
+            //string _firstName = "UItestAdmin";
+            //string _lastName = "UItest";
             string email = _username;
             string password = _password;
 
@@ -500,8 +506,8 @@ namespace OrcaQuizUITest.Tests
 
             Console.WriteLine("Assert that quiz is published to group");
             Assert.That(dashboard.HasGroupPermission(), Is.True);
-            
-            Console.WriteLine("Publish Test is done");  
+
+            Console.WriteLine("Publish Test is done");
 
         }
 

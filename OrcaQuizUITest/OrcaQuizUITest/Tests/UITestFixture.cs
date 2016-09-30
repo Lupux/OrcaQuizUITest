@@ -1,6 +1,11 @@
 ﻿using System;
 using NUnit.Framework;
 using OrcaQuizUITest.Tests;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Net;
 
 namespace OrcaQuizUITest
 {
@@ -10,9 +15,22 @@ namespace OrcaQuizUITest
         [OneTimeSetUp]
         public void RunBeforAnyTest()
         {
-            // here be code for emptying database...
-            SqlSupport.ClearDb();
-          
+
+            ////Local version URL:
+            string url = "http://localhost:27015/" + "Maintenance/InitLocalUITestSession";
+
+            // Expect a ready from page to verify that db is cleared and default admin is setup. 
+            var result = GetString(url);
+
+            if (result != "Ready")
+            {
+                throw new InvalidOperationException();
+
+            }
+
+
+            //PropertiesCollection.driver.Close();
+
         }
 
         [OneTimeTearDown]
@@ -20,6 +38,15 @@ namespace OrcaQuizUITest
         {
 
         }
+
+        private string GetString(string url)
+        {
+            using (var client = new WebClient())
+            {
+                return client.DownloadStringTaskAsync(url).Result;
+            }
+        }
+
 
 
     }

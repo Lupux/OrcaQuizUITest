@@ -102,12 +102,11 @@
     <Compile Include="Pages\TestSessionFinishedPageObject.cs" />
     <Compile Include="Pages\TestSessionPageObject.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="PropertiesCollection.cs" />
+    <Compile Include="Tests\PropertiesCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\GetMethods.cs" />
     <Compile Include="Tests\SetMethods.cs" />
     <Compile Include="Pages\ViewUserPageObject.cs" />
-    <Compile Include="Tests\SqlSupport.cs" />
     <Compile Include="Tests\UITests.cs" />
     <Compile Include="Tests\UITestFixture.cs" />
   </ItemGroup>
@@ -117,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Drivers\chromedriver.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
